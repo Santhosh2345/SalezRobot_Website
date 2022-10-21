@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+
+   <listeners>
+   <listener class-name="utilities.MyTransformer"></listener>
+   </listeners>
+   
+  <test thread-count="1" name="Workflow Trigger Verification for Only On First Time Save" parallel = "false" preserve-order="true">
+  <classes>
+  <class name="rsoft_Workflow_Trigger_Checking_Test.Email_Only_On_The_First_Time_Save_Test"></class>
+  <class name="rsoft_Workflow_Trigger_Checking_Test.Notification_Only_On_The_First_Save_Test"></class>
+  <class name="rsoft_Workflow_Trigger_Checking_Test.SMS_Notification_Only_On_The_First_Save_Test"></class>
+  </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
