@@ -28,6 +28,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -553,6 +554,7 @@ public class SeleniumBase extends Reporter implements Browser, Element {
 	}
 	
 	public String takeSnap2() {
+		
 		long number = (long) Math.floor(Math.random() * 900000000L) + 10000000L;
 		try {
 		String date = new SimpleDateFormat("dd-MMM-yy").format(new Date());
@@ -2107,7 +2109,19 @@ public class SeleniumBase extends Reporter implements Browser, Element {
 			reportStep2(a, "Fail");
 		}
 	}
-
+	public WebElement jsClick_Only(WebElement ele) {
+	    try {
+	    JavascriptExecutor js = (JavascriptExecutor)driver;
+	    wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.elementToBeClickable(ele));
+	    js.executeScript("arguments[0].click();", ele);
+	    }catch(Exception e) {
+	        String a ="Element is not Enabled<br />";
+	        reportStep2(a, "Fail");
+	    }return ele;
+	}
+	    
+	    
 	public WebElement jsClick(WebElement ele, String name, String url) {
 	    try {
 	    JavascriptExecutor js = (JavascriptExecutor)driver;

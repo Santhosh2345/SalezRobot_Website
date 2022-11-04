@@ -1,13 +1,13 @@
-package salezRobotWebsite_Test;
+package org.website_Test;
 
 import org.testng.annotations.BeforeTest;
-
 import org.testng.annotations.Test;
+import org.webSite.Initial_Page;
 
 import projectSpecific.base.ProjectSpecificMethods;
 import salezRobotWebsite.SalezRobot_Website;
 
-public class SalezRobot_Website_Test extends ProjectSpecificMethods{
+public class Initial_Page_Test extends ProjectSpecificMethods{
 
 	@BeforeTest
 	public void setValues() {
@@ -21,10 +21,9 @@ public class SalezRobot_Website_Test extends ProjectSpecificMethods{
 	public void clikable_Elements_in_SalezRobot_Website() throws InterruptedException {
 		node = test.createNode("F_01_01 Verify all Clikable Elements in SalezRobot Website");
 		extent.attachReporter(spark);
-		SalezRobot_Website a = new SalezRobot_Website(driver, node, prop, Environment, StageURL, Stage1URL);
+		Initial_Page a = new Initial_Page(driver, node, prop, Environment, StageURL, Stage1URL);
 		a.launch_Salezrobot_Website();
-		//a.clickable_Element_Verification();
-		//a.footerElementList();
-		a.socialMediaLink();
+		a.ff();
 	}
+
 }
