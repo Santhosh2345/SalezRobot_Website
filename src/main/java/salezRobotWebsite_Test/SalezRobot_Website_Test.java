@@ -23,8 +23,8 @@ public class SalezRobot_Website_Test extends ProjectSpecificMethods{
 		extent.attachReporter(spark);
 		SalezRobot_Website a = new SalezRobot_Website(driver, node, prop, Environment, StageURL, Stage1URL);
 		a.launch_Salezrobot_Website();
-		//a.clickable_Element_Verification();
+		a.clickable_Element_Verification();
 		//a.footerElementList();
-		a.socialMediaLink();
+		//a.socialMediaLink();
 	}
 }

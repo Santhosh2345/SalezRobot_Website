@@ -2,7 +2,7 @@ package salezRobotWebsite;
 
 import java.util.ArrayList;
 import java.util.Properties;
-
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -91,21 +91,23 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 	}
 	
 	public void HomeLink() throws InterruptedException {
+		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
+		kebabPageLink();
+	    verify_report_Click(f.rsoftLinkText("Home"), f.rsoftLinkText("Home").getText(), url());
 		scroll(getStartedTody(1));
 		click2(getStartedTody(1), getStartedTody(1).getText(), url());
 		dataEntryForm();
 		refresh();
-		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
 		scrollToBottom();
 		Thread.sleep(3000);
 		click2(getStartedbottom(), getStartedbottom().getText(), url());
 		dataEntryForm();
-		//chatBot();
-		kebabFunctions();
+		kebabSocialMediaLink();
 		}
 	
 	public void aboutLink() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
+		kebabPageLink();
 	    verify_report_Click(f.rsoftLinkText("About"), f.rsoftLinkText("About").getText(), url());
 		verify_report_Click(f.rsoftLinkText("Get started today"), f.rsoftLinkText("Get started today").getText(), url());
 		dataEntryForm();
@@ -114,6 +116,7 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		Thread.sleep(2000);
 		click2(getStartedbottom(), getStartedbottom().getText(), url());
 		dataEntryForm();
+		kebabSocialMediaLink();
 	}
 	
 	
@@ -269,10 +272,11 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		return kebab;
 	}
 	
-	public void kebabFunctions() throws InterruptedException {
+	
+	
+	//Kebab Button Function
+	public void kebabPageLink() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
-		verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
-        jsClick(f.rsoftLinkText("Home"), f.rsoftLinkText("Home").getText(), url());	
         
 		verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
 		jsClick(f.rsoftLinkText("About"), f.rsoftLinkText("About").getText(), url());	
@@ -286,16 +290,29 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
 		jsClick(f.rsoftLinkText("Contact us"), f.rsoftLinkText("Contact us").getText(), url());	
 		
-		
+		verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
+        jsClick(f.rsoftLinkText("Home"), f.rsoftLinkText("Home").getText(), url());	
+	}
+	
+	
+	public void kebabSocialMediaLink() throws InterruptedException {
+		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
 		//FB Link in Kebab Button
 		verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
         fbLinkButton(1).click();
+        Thread.sleep(3000);
+        ArrayList<String> arr = windowHandles();
+        System.out.println(arr.size());
+        if(arr.size()>1) {
+        	driver.switchTo().window(arr.get(1));
 		try {
 			WebElement fbPage = driver.findElement(By.xpath("//h1[text()='SalezRobot CRM']"));
 			if(fbPage.isDisplayed()) {
 				String a = "SalezRobot FB Page is Dispalyed<br >"+url();
 				reportStep2(a, "PASS");
 				driver.close();
+				Thread.sleep(1000);
+				driver.switchTo().window(arr.get(0));
 			}else {
 				String a = "SalezRobot FB Page is Not Dispalyed<br >"+url();
 				reportStep2(a, "FAIL");
@@ -304,38 +321,146 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 			String a = "SalezRobot FB Page is Not Dispalyed<br >"+url();
 			reportStep2(a, "FAIL");
 		}
+        }else {
+        	try {
+    			WebElement fbPage = driver.findElement(By.xpath("//h1[text()='SalezRobot CRM']"));
+    			if(fbPage.isDisplayed()) {
+    				String a = "SalezRobot FB Page is Dispalyed<br >"+url();
+    				reportStep2(a, "PASS");
+    				back();
+    				Thread.sleep(2000);
+    			}else {
+    				String a = "SalezRobot FB Page is Not Dispalyed<br >"+url();
+    				reportStep2(a, "FAIL");
+    			}
+    		}catch(Exception g) {
+    			String a = "SalezRobot FB Page is Not Dispalyed<br >"+url();
+    			reportStep2(a, "FAIL");
+    		}
+        }
 		
 		
+		
+		//Twitter Link in Kebab Button
+        twitterLinkButton(1).click();
+        
+        
+        
 		//Linkedin Link in Kebab Button
-		verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
         linkedingLinkButton(1).click();
+        ArrayList<String> arr1 = windowHandles();
+        System.out.println(arr1.size());
+        if(arr1.size()>1) {
+        	driver.switchTo().window(arr1.get(1));
         try {
-			WebElement linkedInPage = driver.findElement(By.xpath("//button[text()[normalize-space()='Sign in']]"));
+			WebElement linkedInPage = driver.findElement(By.xpath("//input[@id='email-or-phone']"));
 			if(linkedInPage.isDisplayed()) {
-				WebElement close = driver.findElement(By.xpath("(//button[@aria-label='Dismiss'])[2]"));
-				close.click();
-				WebElement SalezrobotPage = driver.findElement(By.xpath("//h1[text()[normalize-space()='SalezRobot CRM']]"));
-				if(SalezrobotPage.isDisplayed()) {
 				String a = "SalezRobot Linkedin Page is Dispalyed<br >"+url();
 				reportStep2(a, "PASS");
 				driver.close();
-				}
+				Thread.sleep(1000);
+				driver.switchTo().window(arr1.get(0));
 			}else {
 				String a = "SalezRobot Linkedin Page is Not Dispalyed<br >"+url();
 				reportStep2(a, "FAIL");
 			}
 		}catch(Exception g) {
+			try {
+				WebElement close = driver.findElement(By.xpath("(//button[@aria-label='Dismiss'])[2]"));
+				close.click();
+				WebElement SalezrobotPage = driver.findElement(By.xpath("//h1[text()[normalize-space()='SalezRobot CRM']]"));
+				String a = "SalezRobot Linkedin Page is Dispalyed<br >"+url();
+				reportStep2(a, "PASS");
+				driver.close();
+				Thread.sleep(1000);
+				driver.switchTo().window(arr1.get(0));
+			}catch(Exception e) {
 			String a = "SalezRobot Linkedin Page is Not Dispalyed<br >"+url();
 			reportStep2(a, "FAIL");
+			}
 		}
+        }else {
+        	try {
+    			WebElement linkedInPage = driver.findElement(By.xpath("//input[@id='email-or-phone']"));
+    			if(linkedInPage.isDisplayed()) {
+    				String a = "SalezRobot Linkedin Page is Dispalyed<br >"+url();
+    				reportStep2(a, "PASS");
+    				back();
+    				Thread.sleep(2000);
+    			}else {
+    				String a = "SalezRobot Linkedin Page is Not Dispalyed<br >"+url();
+    				reportStep2(a, "FAIL");
+    			}
+    		}catch(Exception g) {
+    			try {
+    				WebElement close = driver.findElement(By.xpath("(//button[@aria-label='Dismiss'])[2]"));
+    				close.click();
+    				WebElement SalezrobotPage = driver.findElement(By.xpath("//h1[text()[normalize-space()='SalezRobot CRM']]"));
+    				if(SalezrobotPage.isDisplayed()) {
+    				String a = "SalezRobot Linkedin Page is Dispalyed<br >"+url();
+    				reportStep2(a, "PASS");
+    				back();
+    				Thread.sleep(2000);
+    				}
+    			}catch(Exception e) {
+    			String a = "SalezRobot Linkedin Page is Not Dispalyed<br >"+url();
+    			reportStep2(a, "FAIL");
+    			}
+    		}
+        }
+        
         
         
         
         //Instagram Link in Kebab Button
-        verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
         instaLinkButton(1).click();
+        ArrayList<String> arr2 = windowHandles();
+        System.out.println(arr2.size());
+        if(arr2.size()>1) {
+        	driver.switchTo().window(arr2.get(1));
+        try {
+			WebElement insta = driver.findElement(By.xpath("//h2[text()='salezrobot']"));
+			if(insta.isDisplayed()) {
+				String a = "SalezRobot Instagram Page is Dispalyed<br >"+url();
+				reportStep2(a, "PASS");
+				driver.close();
+				Thread.sleep(1000);
+				driver.switchTo().window(arr2.get(0));
+			}else {
+				String a = "SalezRobot Instagram Page is Not Dispalyed<br >"+url();
+				reportStep2(a, "FAIL");
+			}
+		}catch(Exception g) {
+			String a = "SalezRobot Instagram Page is Not Dispalyed<br >"+url();
+			reportStep2(a, "FAIL");
+			back();
+		}
+        }else {
+        	try {
+    			WebElement insta = driver.findElement(By.xpath("//input[@name='username']"));
+    			if(insta.isDisplayed()) {
+    				String a = "SalezRobot Instagram Page is Dispalyed<br >"+url();
+    				reportStep2(a, "PASS");
+    				back();
+    				Thread.sleep(2000);
+    			}else {
+    				String a = "SalezRobot Instagram Page is Not Dispalyed<br >"+url();
+    				reportStep2(a, "FAIL");
+    			}
+    		}catch(Exception g) {
+    			String a = "SalezRobot Instagram Page is Not Dispalyed<br >"+url();
+    			reportStep2(a, "FAIL");
+    		}
+        }
+        
+        
+        //Youtube Link in Kebab Button
+        youtubeLinkButton(1).click();
+        verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
 	}
 	
+	
+	//Get started button for Salezrobot
 	public WebElement getStartedTody(int num) {
 		WebElement getStart = driver.findElement(By.xpath("(//span[text()='Get started today'])["+num+"]"));
         return getStart;
@@ -346,6 +471,10 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		return getStartedbottom;
 
 	}
+	
+	
+	
+	//This is Chatbot function
 	public void chatBot() throws InterruptedException {
 		WebElement chat = driver.findElement(By.id("imgg"));
 		verify_report_Click(chat, "Chat Bot", url());
@@ -371,6 +500,9 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		close.click();
 	}
 	
+	
+	
+	//Plus and Minu methods are for Maximize and Minimize function for the content in Pricing Page
 	public WebElement plus(int num) {
 		try {
 		WebElement plus = driver.findElement(By.xpath("(//div[@class='horizontal'])["+num+"]"));
@@ -390,6 +522,8 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 			return null;
 		}
 	}
+	
+	
 	
 	
 	public WebElement footerElement() {
@@ -521,6 +655,8 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		Thread.sleep(1000);
 		youtubeLinkButton(2).click();
 	}
+	
+	
 	public WebElement fbLinkButton(int num) {
 		try {
 		WebElement fb = driver.findElement(By.xpath("(//i[@class='fa fa-facebook'])["+num+"]"));

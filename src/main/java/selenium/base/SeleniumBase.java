@@ -2278,6 +2278,20 @@ public class SeleniumBase extends Reporter implements Browser, Element {
 		 return act;
 	 }
 	 
+	 public ArrayList<String> windowHandles() {
+		 Set<String> wh = driver.getWindowHandles();
+	        ArrayList<String> arr = new ArrayList<>(wh);
+	        return arr;
+	 }
+	 
+	 public void back() {
+	     driver.navigate().back();
+	 }
+	 public void refresh() {
+	     driver.navigate().refresh();
+	 }
+	 
+	 
 	 public void rsoftMini() throws InterruptedException {
 			WebElement minimize = driver.findElement(By.xpath("//a[@data-action='collapse']/i[@class='ft-minus']"));
 			verify_report_Click(minimize, "Minimize Button", url());
@@ -2370,12 +2384,6 @@ public class SeleniumBase extends Reporter implements Browser, Element {
 	 			
 	 }
 	 
-	 public void back() {
-	     driver.navigate().back();
-	 }
-	 public void refresh() {
-	     driver.navigate().refresh();
-	 }
 	 
 	 public WebElement rsoftSaveButton() {
 		 WebElement save = driver.findElement(By.xpath("//button[@class='btn btn-primary']"));
