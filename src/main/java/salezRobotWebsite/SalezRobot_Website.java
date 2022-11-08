@@ -14,10 +14,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import projectSpecific.base.ProjectSpecificMethods;
 import rsoft_web_Application_All_Elements.Rsoft_web_Application_All_Elements_and_All_Methods;
+import salezrobot_Website_Clickable_Elements.Salezrobot_Website_Clickable_Elements;
 
-public class SalezRobot_Website extends ProjectSpecificMethods{
-	public SalezRobot_Website(RemoteWebDriver driver, ExtentTest node, Properties prop, String Environment, String StageUrl,
-			            String Stage1Url){
+public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
+	public SalezRobot_Website(RemoteWebDriver driver, ExtentTest node, Properties prop, String Environment,
+			                   String StageUrl, String Stage1Url) {
 		this.driver = driver;
 		this.node = node;
 		this.prop = prop;
@@ -78,24 +79,23 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 	}catch(Exception g) {
     	reportStep2("Header content is not displayed<br />", "FAIL");
 	}
-	    appScrollingFunction();
-	    HomeLink();
-	    aboutLink();
-	    pricing();
-	    products();
-	    contact();
-	    WebElement freedemo = driver.findElement(By.xpath("//a[text()='free demo ']"));
-	    jsClick(freedemo, "Free Demo", url());
+//	    appScrollingFunction();
+//	    homePage();
+//	    aboutPage();
+//	    pricingPage();
+//	    productsPage();
+	    contactUsPage();
+	    jsClick(freeDemo(), "Free Demo", url());
 	    dataEntryForm();
 	    
 	}
 	
-	public void HomeLink() throws InterruptedException {
+	public void homePage() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
 		kebabPageLink();
 	    verify_report_Click(f.rsoftLinkText("Home"), f.rsoftLinkText("Home").getText(), url());
-		scroll(getStartedTody(1));
-		click2(getStartedTody(1), getStartedTody(1).getText(), url());
+		scroll(getStartedTodayMiddle());
+		click2(getStartedTodayMiddle(), getStartedTodayMiddle().getText(), url());
 		dataEntryForm();
 		refresh();
 		scrollToBottom();
@@ -105,11 +105,11 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		kebabSocialMediaLink();
 		}
 	
-	public void aboutLink() throws InterruptedException {
+	public void aboutPage() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
 		kebabPageLink();
 	    verify_report_Click(f.rsoftLinkText("About"), f.rsoftLinkText("About").getText(), url());
-		verify_report_Click(f.rsoftLinkText("Get started today"), f.rsoftLinkText("Get started today").getText(), url());
+		verify_report_Click(getStartedTodayTop(), getStartedTodayTop().getText(), url());
 		dataEntryForm();
 		refresh();
 		scrollToBottom();
@@ -120,33 +120,51 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 	}
 	
 	
-	public void pricing() throws InterruptedException {
+	public void pricingPage() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
 		verify_report_Click(f.rsoftLinkText("Pricing"), f.rsoftLinkText("Pricing").getText(), url());
-		verify_report_Click(f.rsoftLinkText("Get started today"), f.rsoftLinkText("Get started today").getText(), url());
+		verify_report_Click(getStartedTodayTop(), getStartedTodayTop().getText(), url());
 		dataEntryForm();
 		refresh();
-		scroll(f.rsoftLinkText("Get started today"));
+		scroll(getStartedTodayTop());
 		Thread.sleep(2000);
-        WebElement switchButton = driver.findElement(By.id("switcher"));
-        switchButton.click();
-        switchButton.click();
-        scroll(switchButton);
+        WebElement usd = driver.findElement(By.xpath("//li[text()='USD']"));
+        usd.click();
+        WebElement inr = driver.findElement(By.xpath("//li[text()='INR']"));
+        inr.click();
+        WebElement gbp = driver.findElement(By.xpath("//li[text()='GBP']"));
+        gbp.click();
+        
+        try {
         WebElement signUp1 = driver.findElement(By.xpath("(//a[text()='Signup Now'])[1]"));
-        scroll(switchButton);
-        signUp1.click();
+        scroll(signUp1);
+        mouseMove(signUp1);
+        jsClick_Only(signUp1);
+        }catch(Exception g) {
+        	System.out.println("No signUp1");
+        }
+        
+        try {
         WebElement signUp2 = driver.findElement(By.xpath("(//a[text()='Signup Now'])[2]"));
-        scroll(switchButton);
-        signUp2.click();
+        scroll(signUp2);
+        mouseMove(signUp2);
+        jsClick_Only(signUp2);
+        }catch(Exception g) {
+        	System.out.println("No signUp2");
+        }
+        
+        try {
         WebElement signUp3 = driver.findElement(By.xpath("(//a[text()='Signup Now'])[3]"));
-        scroll(switchButton);
-        signUp3.click();
-        WebElement signUp4 = driver.findElement(By.xpath("(//a[text()='Signup Now'])[4]"));
-        scroll(switchButton);
-        signUp4.click();
+        scroll(signUp3);
+        mouseMove(signUp3);
+        jsClick_Only(signUp3);
+        }catch(Exception g) {
+        	System.out.println("No signUp3");
+        }
+        
         scroll(driver.findElement(By.xpath("//h2[text()='FAQ’s']")));
         Thread.sleep(1000);
-        jsClick(getStartedTody(1), getStartedTody(1).getText(), url());
+        jsClick(getStartedTodayMiddle(), getStartedTodayMiddle().getText(), url());
         dataEntryForm();
         refresh();
         jsClick_Only(minus(1));  jsClick_Only(plus(2));       jsClick_Only(minus(2));
@@ -160,10 +178,10 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
         refresh();
 	}
 	
-	public void products() throws InterruptedException {
+	public void productsPage() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
 		verify_report_Click(f.rsoftLinkText("Products"), f.rsoftLinkText("Products").getText(), url());
-		verify_report_Click(f.rsoftLinkText("Get started today"), f.rsoftLinkText("Get started today").getText(), url());
+		verify_report_Click(getStartedTodayTop(), getStartedTodayTop().getText(), url());
 		dataEntryForm();
 		refresh();
 		scrollToBottom();
@@ -172,10 +190,11 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
         refresh();
 	}
 	
-	public void contact() throws InterruptedException {
+	public void contactUsPage() throws InterruptedException {
 		contact = "Contact";
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
 		verify_report_Click(f.rsoftLinkText("Contact us"), f.rsoftLinkText("Contact us").getText(), url());
+		//verify_report_Click(getStartedTodayTop(), getStartedTodayTop().getText(), url());
 //		WebElement contactNum = driver.findElement(By.xpath("(//a[contains(text(),'044')])[2]"));
 //		contactNum.click();
 //		refresh();
@@ -197,49 +216,65 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		WebElement name = driver.findElement(By.name("contactname"));
 		clearAndType(name, "Santhosh", url());
 		}catch(Exception g) {
+			try {
 			WebElement name = driver.findElement(By.name("name"));
 			clearAndType(name, "Santhosh", url());
+			}catch(Exception h) {
+				WebElement name = driver.findElement(By.xpath("(//input[@name='contactname'])[2]"));
+				clearAndType(name, "Santhosh", url());
+			}
 		}
 		
 		try {
 		WebElement submit = driver.findElement(By.className("button"));
 		act().moveToElement(submit).click().perform();
 		}catch(Exception g) {
+			try {
 			WebElement submit = driver.findElement(By.xpath("//input[@class='button']"));
 			act().moveToElement(submit).click().perform();
-		}
-		
-		if(contact.equalsIgnoreCase("Contact")) {
-		try {
-			WebElement lastName = driver.findElement(By.name("lname"));
-			clearAndType(lastName, "Kumar", url());
-		}catch(Exception g) {
-			
-		}
+			}catch(Exception k) {
+				WebElement submit = driver.findElement(By.xpath("(//input[@class='button'])[2]"));
+				act().moveToElement(submit).click().perform();
+			}
 		}
 		
 		try {
 		WebElement email = driver.findElement(By.name("contactemail"));
 		clearAndType(email, "sk@gmail.com", url());
 		}catch(Exception g) {
+			try {
 			WebElement email = driver.findElement(By.name("email"));
 			clearAndType(email, "Santhosh", url());
+			}catch(Exception hh) {
+				WebElement email = driver.findElement(By.xpath("(//input[@name='contactemail'])[2]"));
+				clearAndType(email, "Santhosh", url());
+			}
 		}
 		
 		try {
 		WebElement phoneNumber = driver.findElement(By.xpath("//input[@name='contactphone']"));
 		clearAndType(phoneNumber, "1234567890", url());
 		}catch(Exception g) {
+			try {
 			WebElement phone = driver.findElement(By.xpath("//input[@placeholder='Phone Number']"));
 			clearAndType(phone, "1234567890", url());
+			}catch(Exception jj) {
+				WebElement phone = driver.findElement(By.xpath("(//input[@name='contactphone'])[2]"));
+				clearAndType(phone, "1234567890", url());
+			}
 		}
 		
 		try {
 		WebElement companyName = driver.findElement(By.name("companyname"));
 		clearAndType(companyName, "Richie Rich", url());
 		}catch(Exception g) {
+			try {
 			WebElement companyName = driver.findElement(By.name("Company"));
 			clearAndType(companyName, "Richie Rich", url());
+			}catch(Exception dd){
+				WebElement companyName = driver.findElement(By.xpath("(//input[@name='companyname'])[2]"));
+				clearAndType(companyName, "Richie Rich", url());
+			}
 		}
 		
 		try {
@@ -254,8 +289,13 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		WebElement message = driver.findElement(By.xpath("(//textarea[@name='message'])"));
 		clearAndType(message, "Hello rsoft", url());
 		}catch(Exception g) {
+			try {
 			WebElement message = driver.findElement(By.xpath("(//textarea[@name='message'])[2]"));
 			clearAndType(message, "Hello rsoft", url());
+			}catch(Exception ss) {
+				WebElement message = driver.findElement(By.xpath("(//textarea[@name='message'])[2]"));
+				clearAndType(message, "Hello rsoft", url());
+			}
 		}
 		
 		try {
@@ -267,38 +307,33 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		
 	}
 	
-	public WebElement kebabNavigationButton() {
-		WebElement kebab = driver.findElement(By.xpath("//label[@class='navigation__button home']"));
-		return kebab;
-	}
-	
 	
 	
 	//Kebab Button Function
 	public void kebabPageLink() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
         
-		verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
-		jsClick(f.rsoftLinkText("About"), f.rsoftLinkText("About").getText(), url());	
+		verify_report_Click(kebabButton(), "Kebab Button", url());
+		jsClick(about(), about().getText(), url());	
 		
-		verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
-		jsClick(f.rsoftLinkText("Pricing"), f.rsoftLinkText("Pricing").getText(), url());	
+		verify_report_Click(kebabButton(), "Kebab Button", url());
+		jsClick(pricing(), pricing().getText(), url());	
 		
-		verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
-		jsClick(f.rsoftLinkText("Products"), f.rsoftLinkText("Products").getText(), url());	
+		verify_report_Click(kebabButton(), "Kebab Button", url());
+		jsClick(products(), products().getText(), url());	
 		
-		verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
-		jsClick(f.rsoftLinkText("Contact us"), f.rsoftLinkText("Contact us").getText(), url());	
+		verify_report_Click(kebabButton(), "Kebab Button", url());
+		jsClick(contactUs(), contactUs().getText(), url());	
 		
-		verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
-        jsClick(f.rsoftLinkText("Home"), f.rsoftLinkText("Home").getText(), url());	
+		verify_report_Click(kebabButton(), "Kebab Button", url());
+        jsClick(home(), home().getText(), url());	
 	}
 	
 	
 	public void kebabSocialMediaLink() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
 		//FB Link in Kebab Button
-		verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
+		verify_report_Click(kebabButton(), "Kebab Button", url());
         fbLinkButton(1).click();
         Thread.sleep(3000);
         ArrayList<String> arr = windowHandles();
@@ -343,7 +378,45 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		
 		//Twitter Link in Kebab Button
         twitterLinkButton(1).click();
-        
+        Thread.sleep(3000);
+        ArrayList<String> arr3 = windowHandles();
+        System.out.println(arr3.size());
+        if(arr3.size()>1) {
+        	driver.switchTo().window(arr3.get(1));
+        try {
+			WebElement insta = driver.findElement(By.xpath("//h2[text()='salezrobot']"));
+			if(insta.isDisplayed()) {
+				String a = "SalezRobot Twitter Page is Dispalyed<br >"+url();
+				reportStep2(a, "PASS");
+				driver.close();
+				Thread.sleep(1000);
+				driver.switchTo().window(arr3.get(0));
+			}else {
+				String a = "SalezRobot Twitter Page is Not Dispalyed<br >"+url();
+				reportStep2(a, "FAIL");
+			}
+		}catch(Exception g) {
+			String a = "SalezRobot Twitter Page is Not Dispalyed<br >"+url();
+			reportStep2(a, "FAIL");
+			back();
+		}
+        }else {
+        	try {
+    			WebElement insta = driver.findElement(By.xpath("//h2[text()='salezrobot']"));
+    			if(insta.isDisplayed()) {
+    				String a = "SalezRobot Twitter Page is Dispalyed<br >"+url();
+    				reportStep2(a, "PASS");
+    				back();
+    				Thread.sleep(2000);
+    			}else {
+    				String a = "SalezRobot Twitter Page is Not Dispalyed<br >"+url();
+    				reportStep2(a, "FAIL");
+    			}
+    		}catch(Exception g) {
+    			String a = "SalezRobot Twitter Page is Not Dispalyed<br >"+url();
+    			reportStep2(a, "FAIL");
+    		}
+        }
         
         
 		//Linkedin Link in Kebab Button
@@ -437,7 +510,7 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		}
         }else {
         	try {
-    			WebElement insta = driver.findElement(By.xpath("//input[@name='username']"));
+    			WebElement insta = driver.findElement(By.xpath("//h2[text()='salezrobot']"));
     			if(insta.isDisplayed()) {
     				String a = "SalezRobot Instagram Page is Dispalyed<br >"+url();
     				reportStep2(a, "PASS");
@@ -456,23 +529,8 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
         
         //Youtube Link in Kebab Button
         youtubeLinkButton(1).click();
-        verify_report_Click(kebabNavigationButton(), "Kebab Button", url());
+        verify_report_Click(kebabButton(), "Kebab Button", url());
 	}
-	
-	
-	//Get started button for Salezrobot
-	public WebElement getStartedTody(int num) {
-		WebElement getStart = driver.findElement(By.xpath("(//span[text()='Get started today'])["+num+"]"));
-        return getStart;
-	}
-	
-	public WebElement getStartedbottom() {
-		WebElement getStartedbottom = driver.findElement(By.xpath("//a[text()=' Get started today ']"));
-		return getStartedbottom;
-
-	}
-	
-	
 	
 	//This is Chatbot function
 	public void chatBot() throws InterruptedException {
@@ -499,39 +557,6 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		WebElement close = driver.findElement(By.id("closeClick"));
 		close.click();
 	}
-	
-	
-	
-	//Plus and Minu methods are for Maximize and Minimize function for the content in Pricing Page
-	public WebElement plus(int num) {
-		try {
-		WebElement plus = driver.findElement(By.xpath("(//div[@class='horizontal'])["+num+"]"));
-		return plus;
-		}
-		catch(Exception g) {
-			return null;
-		}
-	}
-	
-	public WebElement minus(int num) {
-		try {
-		WebElement plus = driver.findElement(By.xpath("(//div[@class='vertical'])["+num+"]"));
-		return plus;
-		}
-		catch(Exception g) {
-			return null;
-		}
-	}
-	
-	
-	
-	
-	public WebElement footerElement() {
-		WebElement footer = driver.findElement(By.xpath("//div[@class='footer']"));
-		return footer;
-
-	}
-	
 	
 	public void footerElementList() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
@@ -655,67 +680,7 @@ public class SalezRobot_Website extends ProjectSpecificMethods{
 		Thread.sleep(1000);
 		youtubeLinkButton(2).click();
 	}
-	
-	
-	public WebElement fbLinkButton(int num) {
-		try {
-		WebElement fb = driver.findElement(By.xpath("(//i[@class='fa fa-facebook'])["+num+"]"));
-		return fb;
-		}catch(Exception g) {
-			String a = "Facebook link is not clickable<br />"+url();
-			reportStep2(a, "Fail");
-			return null;
-		}
-	}
-	
-	public WebElement twitterLinkButton(int num) {
-		try {
-			WebElement twitter = driver.findElement(By.xpath("(//i[@class='fa fa-twitter'])["+num+"]"));
-			return twitter;
-			}catch(Exception g) {
-				String a = "Twitter link is not clickable<br />"+url();
-				reportStep2(a, "Fail");
-				return null;
-			}
-	}
-	
-	public WebElement linkedingLinkButton(int num) {
-		try {
-			WebElement linkedin = driver.findElement(By.xpath("(//i[@class='fa fa-linkedin'])["+num+"]"));
-			return linkedin;
-			}catch(Exception g) {
-				String a = "Linkedin link is not clickable<br />"+url();
-				reportStep2(a, "Fail");
-				return null;
-			}
-	}
-	
-	public WebElement instaLinkButton(int num) {
-		try {
-			WebElement instagram = driver.findElement(By.xpath("(//i[@class='fa fa-instagram'])["+num+"]"));
-			return instagram;
-			}catch(Exception g) {
-				String a = "Instagram link is not clickable<br />"+url();
-				reportStep2(a, "Fail");
-				return null;
-			}
-	}
-	
-	public WebElement youtubeLinkButton(int num) {
-		try {
-			WebElement youtube = driver.findElement(By.xpath("(//i[@class='fa fa-youtube-play'])["+num+"]"));
-			return youtube;
-			}catch(Exception g) {
-				String a = "Youtube link is not clickable<br />"+url();
-				reportStep2(a, "Fail");
-				return null;
-			}
-	}
 }
-
-
-
-
 
 
 
