@@ -92,6 +92,15 @@ public WebElement name() {
 	   }
    }
    
+   //Skip Intro
+   public WebElement skipIntro() {
+	   try {
+		   WebElement skipIntro = driver.findElement(By.linkText("Skip Intro"));
+		   return skipIntro;
+	   }catch(Exception g) {
+		   return null;
+	   }
+   }
    //Kebab button
    public WebElement kebabButton() {
 	   try {
@@ -162,6 +171,7 @@ public WebElement name() {
 			}
 	}
 	
+	
 	//Get started button for Salezrobot
 	public WebElement getStartedTodayTop() {
 		try {
@@ -191,6 +201,43 @@ public WebElement name() {
 		}
 		
 		
+		//Read customer stories
+		public WebElement readCustomerStories() {
+			try {
+				WebElement read = driver.findElement(By.linkText("Read customer stories"));
+				return read;
+			}catch(Exception g) {
+				return null;
+			}
+		}
+		
+		//Robot CLose Button
+		public WebElement robotCloseButton() {
+			try {
+		    	 WebElement close = driver.findElement(By.id("closeClick"));
+		 		 return close;
+		     }catch(Exception g) {
+		    	 return null;
+		     }
+		}
+		//SalezRobot for button
+		public WebElement salezRobotForButtonToOpen(int num) {
+			try {
+				WebElement forButton = driver.findElement(By.xpath("(//button[@class='accordion-button collapsed'])["+num+"]"));
+				return forButton;
+			}catch(Exception g) {
+				return null;
+			}
+		}
+		
+		public WebElement salezRobotForButtonToClose() {
+			try {
+				WebElement forButton = driver.findElement(By.xpath("(//button[@class='accordion-button'])"));
+				return forButton;
+			}catch(Exception g) {
+				return null;
+			}
+		}
 		//Plus and Minu methods are for Maximize and Minimize function for the content in Pricing Page
 		public WebElement plus(int num) {
 			try {
@@ -210,6 +257,153 @@ public WebElement name() {
 				return null;
 			}
 		}
+		
+		
+		//Our Team
+		public WebElement ourTeam(int num) {
+			try {
+			WebElement team = driver.findElement(By.xpath("(//li/button[contains(@id,'slick-slide-control0')])["+num+"]"));
+			return team;
+			}catch(Exception g) {
+				return null;
+			}
+		}
+		
+		
+		//Our Journey
+		public WebElement ourJourneyNext() {
+			try {
+				WebElement journey = driver.findElement(By.xpath("//div[@class='row ourJourneyBottom']//button[@class='slick-next slick-arrow']"));
+				return journey;
+			}catch(Exception gg) {
+				return null;
+			}
+		}
+		
+		public WebElement ourJourneyPrevious() {
+			try {
+				WebElement journey = driver.findElement(By.xpath("//div[@class='row ourJourneyBottom']//button[@class='slick-prev slick-arrow']"));
+				return journey;
+			}catch(Exception f) {
+				return null;
+			}
+		}
+		
+		
+		//Clients Review
+		public WebElement clientsReviewNext() {
+			try {
+				WebElement review = driver.findElement(By.xpath("(//div[@class='testimonial']//button[@class='slick-next slick-arrow'])[1]"));
+				return review;
+			}catch(Exception gg) {
+				return null;
+			}
+		}
+		
+		public WebElement clientsReviewPrevious() {
+			try {
+				WebElement review = driver.findElement(By.xpath("//div[@class='testimonial']//button[@class='slick-prev slick-arrow']"));
+				return review;
+			}catch(Exception gg) {
+				return null;
+			}
+		}
+		
+		
+		//Amount per annum
+		public WebElement basicPlan() {
+			try {
+				WebElement basicPlan = driver.findElement(By.xpath("(//div[@class='price']//span)[2]"));
+				return basicPlan;
+			}catch(Exception g) {
+				return null;
+			}
+		}
+
+		public WebElement enterprisePlan() {
+			try {
+				WebElement plan = driver.findElement(By.xpath("(//div[@class='price']//span)[5]"));
+				return plan;
+			}catch(Exception g) {
+				return null;
+			}
+		}
+		
+		public WebElement customisedPlan() {
+			try {
+				WebElement customised = driver.findElement(By.xpath("(//div[@class='price']//span)[8]"));
+				return customised;
+			}catch(Exception g) {
+				return null;
+			}
+		}
+		
+		//Signup Now
+		public WebElement basicPlan_Signup() {
+			try {
+		        WebElement signUp1 = driver.findElement(By.xpath("(//div[@class='plan']//a)[2]"));
+		        return signUp1;
+		        }catch(Exception g) {
+		        	return null;
+		        }
+		}
+
+		public WebElement enterprisePlan_Signup() {
+			try {
+		        WebElement signUp1 = driver.findElement(By.xpath("(//div[@class='plan']//a)[4]"));
+		        return signUp1;
+		        }catch(Exception g) {
+		        	return null;
+		        }
+		}
+		
+		public WebElement customisedPlan_Signup() {
+			try {
+		        WebElement signUp1 = driver.findElement(By.xpath("(//div[@class='plan']//a)[6]"));
+		        return signUp1;
+		        }catch(Exception g) {
+		        	return null;
+		        }
+		}
+		
+		//Contact div Element in Contact us
+		public WebElement phoneNumber() {
+			try {
+				WebElement contact = driver.findElement(By.xpath("(//li[text()='Contact : ']/a)[1]"));
+				return contact;
+			}catch(Exception g) {
+				return null;
+			}
+		}
+		
+		public WebElement emailContact() {
+			try {
+				WebElement emailcontact = driver.findElement(By.xpath("(//li[text()='Mail Us : ']/a)[1]"));
+				return emailcontact;
+			}catch(Exception g) {
+				return null;
+			}
+		}
+		
+		//Kebab Contact
+		public WebElement Kebab_phoneNumber() {
+			try {
+				WebElement phone = driver.findElement(By.xpath("(//div[@class='col-md-4']/h4/a)[1]"));
+				return phone;
+			}catch(Exception g) {
+				return null;
+			}
+		}
+		
+		public WebElement Kebab_emailContact() {
+			try {
+				WebElement email = driver.findElement(By.xpath("(//div[@class='col-md-4']/h4/a)[2]"));
+				return email;
+			}catch(Exception g) {
+				return null;
+			}
+		}
+		
 		
 		//Footer ELement
 		public WebElement footerElement() {

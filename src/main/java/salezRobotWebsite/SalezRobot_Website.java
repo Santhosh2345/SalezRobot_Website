@@ -1,5 +1,6 @@
 package salezRobotWebsite;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Set;
@@ -7,6 +8,8 @@ import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.aventstack.extentreports.ExtentTest;
 
@@ -53,13 +56,9 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 	     Thread.sleep(2000);
 	     scrollToHeight();
 	     Thread.sleep(2000);
-	     f.rsoftLinkText("Skip Intro").click();
-	     try {
-	    	 WebElement close = driver.findElement(By.id("closeClick"));
-	 		 close.click();
-	     }catch(Exception g) {
-	    	 System.out.println("Chatbot not opened");
-	     }
+	     skipIntro().click();
+	     Thread.sleep(5000);
+	     
 	}
 	
 	
@@ -79,25 +78,55 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 	}catch(Exception g) {
     	reportStep2("Header content is not displayed<br />", "FAIL");
 	}
-//	    appScrollingFunction();
-//	    homePage();
-//	    aboutPage();
-//	    pricingPage();
-//	    productsPage();
+	 //   appScrollingFunction();
+	//    homePage();
+	//    aboutPage();
+	 //   pricingPage();
+	  //  productsPage();
 	    contactUsPage();
-	    jsClick(freeDemo(), "Free Demo", url());
-	    dataEntryForm();
+//	    jsClick(freeDemo(), "Free Demo", url());
+//	    dataEntryForm();
 	    
 	}
 	
 	public void homePage() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
 		kebabPageLink();
-	    verify_report_Click(f.rsoftLinkText("Home"), f.rsoftLinkText("Home").getText(), url());
+	    verify_report_Click(home(), home().getText(), url());
+	    skipIntro().click();
+	    
+	    //Read Customer Stories
+	    scroll(readCustomerStories());
+	    readCustomerStories().click();
+	    
+	    //Following Salez Robot For
+	    scroll(salezRobotForButtonToClose());
+	    salezRobotForButtonToClose().click();
+	    salezRobotForButtonToOpen(1).click();
+	    salezRobotForButtonToClose().click();
+	    salezRobotForButtonToOpen(2).click();
+	    salezRobotForButtonToClose().click();
+	    salezRobotForButtonToOpen(3).click();
+	    salezRobotForButtonToClose().click();
+	    salezRobotForButtonToOpen(4).click();
+	    salezRobotForButtonToClose().click();
+	    salezRobotForButtonToOpen(5).click();
+	    salezRobotForButtonToClose().click();
+	    
+	    //Middle Get Started Today
 		scroll(getStartedTodayMiddle());
 		click2(getStartedTodayMiddle(), getStartedTodayMiddle().getText(), url());
 		dataEntryForm();
 		refresh();
+		
+		//Social Media
+		socialMediaLink();
+		
+		//Footer Elements
+		scrollToBottom();
+		footerElementList();
+		
+		//Bottom Get Started Today
 		scrollToBottom();
 		Thread.sleep(3000);
 		click2(getStartedbottom(), getStartedbottom().getText(), url());
@@ -107,11 +136,48 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 	
 	public void aboutPage() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
-		kebabPageLink();
-	    verify_report_Click(f.rsoftLinkText("About"), f.rsoftLinkText("About").getText(), url());
+		//kebabPageLink();
+	    verify_report_Click(about(), about().getText(), url());
+	    
+	    //Top Get Started Today
 		verify_report_Click(getStartedTodayTop(), getStartedTodayTop().getText(), url());
 		dataEntryForm();
 		refresh();
+		
+		//Our Journey
+	    for (int i = 0; i >=0; i++) {
+		
+				try {
+				WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(10));
+				wait.until(ExpectedConditions.visibilityOf(ourJourneyNext()));
+				ourJourneyNext().click();
+				}catch(Exception h) {
+					break;
+				}
+	    }
+	    for (int j = 0; j >=0; j++) {
+				try {
+					WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(10));
+					wait.until(ExpectedConditions.visibilityOf(ourJourneyPrevious()));
+					ourJourneyPrevious().click();
+					}catch(Exception h) {
+						break;
+					}
+			}
+		
+	    
+	    //Our Team
+	    ourTeam(1).click();
+	    Thread.sleep(2000);
+	    ourTeam(2).click();
+	    Thread.sleep(2000);
+	    ourTeam(3).click();
+	    Thread.sleep(2000);
+	    ourTeam(4).click();
+	    
+	    //Clients Review
+		clientsReviewClicks();    
+		    
 		scrollToBottom();
 		Thread.sleep(2000);
 		click2(getStartedbottom(), getStartedbottom().getText(), url());
@@ -122,10 +188,15 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 	
 	public void pricingPage() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
-		verify_report_Click(f.rsoftLinkText("Pricing"), f.rsoftLinkText("Pricing").getText(), url());
-		verify_report_Click(getStartedTodayTop(), getStartedTodayTop().getText(), url());
-		dataEntryForm();
-		refresh();
+		verify_report_Click(pricing(), pricing().getText(), url());
+		
+		//Get Started Today TOp
+//		verify_report_Click(getStartedTodayTop(), getStartedTodayTop().getText(), url());
+//		dataEntryForm();
+//		refresh();
+		
+		
+		//Plans
 		scroll(getStartedTodayTop());
 		Thread.sleep(2000);
         WebElement usd = driver.findElement(By.xpath("//li[text()='USD']"));
@@ -134,45 +205,65 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
         inr.click();
         WebElement gbp = driver.findElement(By.xpath("//li[text()='GBP']"));
         gbp.click();
+        refresh();
         
-        try {
-        WebElement signUp1 = driver.findElement(By.xpath("(//a[text()='Signup Now'])[1]"));
-        scroll(signUp1);
-        mouseMove(signUp1);
-        jsClick_Only(signUp1);
-        }catch(Exception g) {
-        	System.out.println("No signUp1");
-        }
+        //Plans
+        mouseMove(basicPlan());
+        Thread.sleep(2000);
+        jsClick_Only(basicPlan());
+        Thread.sleep(2000);
+        mouseMove(enterprisePlan());
+        Thread.sleep(2000);
+        jsClick_Only(enterprisePlan());
+        Thread.sleep(2000);
+        mouseMove(customisedPlan());
+        Thread.sleep(2000);
+        jsClick_Only(customisedPlan());
+        Thread.sleep(2000);
         
-        try {
-        WebElement signUp2 = driver.findElement(By.xpath("(//a[text()='Signup Now'])[2]"));
-        scroll(signUp2);
-        mouseMove(signUp2);
-        jsClick_Only(signUp2);
-        }catch(Exception g) {
-        	System.out.println("No signUp2");
-        }
+        mouseMove(basicPlan_Signup());
+        Thread.sleep(2000);
+        jsClick_Only(basicPlan_Signup());
+        Thread.sleep(2000);
+        mouseMove(enterprisePlan_Signup());
+        Thread.sleep(2000);
+        jsClick_Only(enterprisePlan_Signup());
+        Thread.sleep(2000);
+        mouseMove(customisedPlan_Signup());
+        Thread.sleep(2000);
+        jsClick_Only(customisedPlan_Signup());
+        Thread.sleep(2000);
         
-        try {
-        WebElement signUp3 = driver.findElement(By.xpath("(//a[text()='Signup Now'])[3]"));
-        scroll(signUp3);
-        mouseMove(signUp3);
-        jsClick_Only(signUp3);
-        }catch(Exception g) {
-        	System.out.println("No signUp3");
-        }
-        
+        //Clients Review
+        clientsReviewClicks();  
+      		
+      	
+      	//Get Started Today Middle
         scroll(driver.findElement(By.xpath("//h2[text()='FAQ’s']")));
         Thread.sleep(1000);
         jsClick(getStartedTodayMiddle(), getStartedTodayMiddle().getText(), url());
         dataEntryForm();
         refresh();
+        
+        //FAQ's
         jsClick_Only(minus(1));  jsClick_Only(plus(2));       jsClick_Only(minus(2));
         jsClick_Only(plus(3));   jsClick_Only(minus(3));      jsClick_Only(plus(4));   jsClick_Only(minus(4));
         jsClick_Only(plus(5));   jsClick_Only(minus(5));      jsClick_Only(plus(6));   jsClick_Only(minus(6));
         jsClick_Only(plus(7));   jsClick_Only(minus(7));      jsClick_Only(plus(8));   jsClick_Only(minus(8));
         jsClick_Only(plus(9));   jsClick_Only(minus(9));
+        
+        //Footer Elements
+        footerElementList();
+        
+        //Scocial Media Link
         scrollToBottom();
+        facebook(2);
+        twitter(2);
+        linkedin(2);
+        instagram(2);
+        youtube(2);
+        
+        //Get Started Today Bottom
         getStartedbottom().click();
         dataEntryForm();
         refresh();
@@ -180,10 +271,28 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 	
 	public void productsPage() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
-		verify_report_Click(f.rsoftLinkText("Products"), f.rsoftLinkText("Products").getText(), url());
+		verify_report_Click(products(), products().getText(), url());
+		
+		//Get Started Today Top
 		verify_report_Click(getStartedTodayTop(), getStartedTodayTop().getText(), url());
 		dataEntryForm();
 		refresh();
+		
+		//Clients Review
+  		clientsReviewClicks(); 
+  		
+  		//Footer Elements
+        footerElementList();
+  		
+        //Scocial Media Link
+        scrollToBottom();
+        facebook(2);
+        twitter(2);
+        linkedin(2);
+        instagram(2);
+        youtube(2);
+        
+		//Get Started Today Bottom
 		scrollToBottom();
         getStartedbottom().click();
         dataEntryForm();
@@ -193,19 +302,39 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 	public void contactUsPage() throws InterruptedException {
 		contact = "Contact";
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
-		verify_report_Click(f.rsoftLinkText("Contact us"), f.rsoftLinkText("Contact us").getText(), url());
-		//verify_report_Click(getStartedTodayTop(), getStartedTodayTop().getText(), url());
-//		WebElement contactNum = driver.findElement(By.xpath("(//a[contains(text(),'044')])[2]"));
-//		contactNum.click();
-//		refresh();
-//		
-//		WebElement contactEmail = driver.findElement(By.xpath("(//a[contains(text(),'.com')])[2]"));
-//		contactEmail.click();
-//		Thread.sleep(2000);
-//		refresh();
+		verify_report_Click(contactUs(), contactUs().getText(), url());
+		Thread.sleep(7000);
+	    try {
+	    robotCloseButton().click();
+	    }catch(Exception g) {
+	    	
+	    }
+	    
+	    //Get Started Today Top
+		verify_report_Click(getStartedTodayTop(), getStartedTodayTop().getText(), url());
+		phoneNumber();
+		refresh();
+		
+		WebElement contactEmail = driver.findElement(By.xpath("(//a[contains(text(),'.com')])[2]"));
+		emailContact();
+		refresh();
+		
+		//Bottom Entry Form
 		dataEntryForm();
 		refresh();
 
+		//Footer Elements
+        footerElementList();
+  		
+        //Scocial Media Link
+        scrollToBottom();
+        facebook(2);
+        twitter(2);
+        linkedin(2);
+        instagram(2);
+        youtube(2);
+        
+		//Get Started Today Bottom
 		verify_report_Click(getStartedbottom(), getStartedbottom().getText(), url());
 		dataEntryForm();
 
@@ -316,219 +445,39 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 		verify_report_Click(kebabButton(), "Kebab Button", url());
 		jsClick(about(), about().getText(), url());	
 		
-		verify_report_Click(kebabButton(), "Kebab Button", url());
+		jsClick_Only(kebabButton());
 		jsClick(pricing(), pricing().getText(), url());	
 		
-		verify_report_Click(kebabButton(), "Kebab Button", url());
+		jsClick_Only(kebabButton());
 		jsClick(products(), products().getText(), url());	
 		
-		verify_report_Click(kebabButton(), "Kebab Button", url());
+		jsClick_Only(kebabButton());
 		jsClick(contactUs(), contactUs().getText(), url());	
 		
-		verify_report_Click(kebabButton(), "Kebab Button", url());
+		jsClick_Only(kebabButton());
         jsClick(home(), home().getText(), url());	
+        
+        jsClick_Only(kebabButton());
+        jsClick(Kebab_phoneNumber(), "Kebab Phone Contact", url());	
+        
+        if(Kebab_emailContact().isDisplayed()) {
+        	jsClick(Kebab_emailContact(), "Kebab Email Contact", url());	
+        }else {
+        jsClick_Only(kebabButton());
+        jsClick(Kebab_emailContact(), "Kebab Email Contact", url());	
+        }
 	}
 	
 	
 	public void kebabSocialMediaLink() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
-		//FB Link in Kebab Button
 		verify_report_Click(kebabButton(), "Kebab Button", url());
-        fbLinkButton(1).click();
-        Thread.sleep(3000);
-        ArrayList<String> arr = windowHandles();
-        System.out.println(arr.size());
-        if(arr.size()>1) {
-        	driver.switchTo().window(arr.get(1));
-		try {
-			WebElement fbPage = driver.findElement(By.xpath("//h1[text()='SalezRobot CRM']"));
-			if(fbPage.isDisplayed()) {
-				String a = "SalezRobot FB Page is Dispalyed<br >"+url();
-				reportStep2(a, "PASS");
-				driver.close();
-				Thread.sleep(1000);
-				driver.switchTo().window(arr.get(0));
-			}else {
-				String a = "SalezRobot FB Page is Not Dispalyed<br >"+url();
-				reportStep2(a, "FAIL");
-			}
-		}catch(Exception g) {
-			String a = "SalezRobot FB Page is Not Dispalyed<br >"+url();
-			reportStep2(a, "FAIL");
-		}
-        }else {
-        	try {
-    			WebElement fbPage = driver.findElement(By.xpath("//h1[text()='SalezRobot CRM']"));
-    			if(fbPage.isDisplayed()) {
-    				String a = "SalezRobot FB Page is Dispalyed<br >"+url();
-    				reportStep2(a, "PASS");
-    				back();
-    				Thread.sleep(2000);
-    			}else {
-    				String a = "SalezRobot FB Page is Not Dispalyed<br >"+url();
-    				reportStep2(a, "FAIL");
-    			}
-    		}catch(Exception g) {
-    			String a = "SalezRobot FB Page is Not Dispalyed<br >"+url();
-    			reportStep2(a, "FAIL");
-    		}
-        }
-		
-		
-		
-		//Twitter Link in Kebab Button
-        twitterLinkButton(1).click();
-        Thread.sleep(3000);
-        ArrayList<String> arr3 = windowHandles();
-        System.out.println(arr3.size());
-        if(arr3.size()>1) {
-        	driver.switchTo().window(arr3.get(1));
-        try {
-			WebElement insta = driver.findElement(By.xpath("//h2[text()='salezrobot']"));
-			if(insta.isDisplayed()) {
-				String a = "SalezRobot Twitter Page is Dispalyed<br >"+url();
-				reportStep2(a, "PASS");
-				driver.close();
-				Thread.sleep(1000);
-				driver.switchTo().window(arr3.get(0));
-			}else {
-				String a = "SalezRobot Twitter Page is Not Dispalyed<br >"+url();
-				reportStep2(a, "FAIL");
-			}
-		}catch(Exception g) {
-			String a = "SalezRobot Twitter Page is Not Dispalyed<br >"+url();
-			reportStep2(a, "FAIL");
-			back();
-		}
-        }else {
-        	try {
-    			WebElement insta = driver.findElement(By.xpath("//h2[text()='salezrobot']"));
-    			if(insta.isDisplayed()) {
-    				String a = "SalezRobot Twitter Page is Dispalyed<br >"+url();
-    				reportStep2(a, "PASS");
-    				back();
-    				Thread.sleep(2000);
-    			}else {
-    				String a = "SalezRobot Twitter Page is Not Dispalyed<br >"+url();
-    				reportStep2(a, "FAIL");
-    			}
-    		}catch(Exception g) {
-    			String a = "SalezRobot Twitter Page is Not Dispalyed<br >"+url();
-    			reportStep2(a, "FAIL");
-    		}
-        }
+		facebook(1);
+		twitter(1);
+        linkedin(1);
+        instagram(1);
+        youtube(1);
         
-        
-		//Linkedin Link in Kebab Button
-        linkedingLinkButton(1).click();
-        ArrayList<String> arr1 = windowHandles();
-        System.out.println(arr1.size());
-        if(arr1.size()>1) {
-        	driver.switchTo().window(arr1.get(1));
-        try {
-			WebElement linkedInPage = driver.findElement(By.xpath("//input[@id='email-or-phone']"));
-			if(linkedInPage.isDisplayed()) {
-				String a = "SalezRobot Linkedin Page is Dispalyed<br >"+url();
-				reportStep2(a, "PASS");
-				driver.close();
-				Thread.sleep(1000);
-				driver.switchTo().window(arr1.get(0));
-			}else {
-				String a = "SalezRobot Linkedin Page is Not Dispalyed<br >"+url();
-				reportStep2(a, "FAIL");
-			}
-		}catch(Exception g) {
-			try {
-				WebElement close = driver.findElement(By.xpath("(//button[@aria-label='Dismiss'])[2]"));
-				close.click();
-				WebElement SalezrobotPage = driver.findElement(By.xpath("//h1[text()[normalize-space()='SalezRobot CRM']]"));
-				String a = "SalezRobot Linkedin Page is Dispalyed<br >"+url();
-				reportStep2(a, "PASS");
-				driver.close();
-				Thread.sleep(1000);
-				driver.switchTo().window(arr1.get(0));
-			}catch(Exception e) {
-			String a = "SalezRobot Linkedin Page is Not Dispalyed<br >"+url();
-			reportStep2(a, "FAIL");
-			}
-		}
-        }else {
-        	try {
-    			WebElement linkedInPage = driver.findElement(By.xpath("//input[@id='email-or-phone']"));
-    			if(linkedInPage.isDisplayed()) {
-    				String a = "SalezRobot Linkedin Page is Dispalyed<br >"+url();
-    				reportStep2(a, "PASS");
-    				back();
-    				Thread.sleep(2000);
-    			}else {
-    				String a = "SalezRobot Linkedin Page is Not Dispalyed<br >"+url();
-    				reportStep2(a, "FAIL");
-    			}
-    		}catch(Exception g) {
-    			try {
-    				WebElement close = driver.findElement(By.xpath("(//button[@aria-label='Dismiss'])[2]"));
-    				close.click();
-    				WebElement SalezrobotPage = driver.findElement(By.xpath("//h1[text()[normalize-space()='SalezRobot CRM']]"));
-    				if(SalezrobotPage.isDisplayed()) {
-    				String a = "SalezRobot Linkedin Page is Dispalyed<br >"+url();
-    				reportStep2(a, "PASS");
-    				back();
-    				Thread.sleep(2000);
-    				}
-    			}catch(Exception e) {
-    			String a = "SalezRobot Linkedin Page is Not Dispalyed<br >"+url();
-    			reportStep2(a, "FAIL");
-    			}
-    		}
-        }
-        
-        
-        
-        
-        //Instagram Link in Kebab Button
-        instaLinkButton(1).click();
-        ArrayList<String> arr2 = windowHandles();
-        System.out.println(arr2.size());
-        if(arr2.size()>1) {
-        	driver.switchTo().window(arr2.get(1));
-        try {
-			WebElement insta = driver.findElement(By.xpath("//h2[text()='salezrobot']"));
-			if(insta.isDisplayed()) {
-				String a = "SalezRobot Instagram Page is Dispalyed<br >"+url();
-				reportStep2(a, "PASS");
-				driver.close();
-				Thread.sleep(1000);
-				driver.switchTo().window(arr2.get(0));
-			}else {
-				String a = "SalezRobot Instagram Page is Not Dispalyed<br >"+url();
-				reportStep2(a, "FAIL");
-			}
-		}catch(Exception g) {
-			String a = "SalezRobot Instagram Page is Not Dispalyed<br >"+url();
-			reportStep2(a, "FAIL");
-			back();
-		}
-        }else {
-        	try {
-    			WebElement insta = driver.findElement(By.xpath("//h2[text()='salezrobot']"));
-    			if(insta.isDisplayed()) {
-    				String a = "SalezRobot Instagram Page is Dispalyed<br >"+url();
-    				reportStep2(a, "PASS");
-    				back();
-    				Thread.sleep(2000);
-    			}else {
-    				String a = "SalezRobot Instagram Page is Not Dispalyed<br >"+url();
-    				reportStep2(a, "FAIL");
-    			}
-    		}catch(Exception g) {
-    			String a = "SalezRobot Instagram Page is Not Dispalyed<br >"+url();
-    			reportStep2(a, "FAIL");
-    		}
-        }
-        
-        
-        //Youtube Link in Kebab Button
-        youtubeLinkButton(1).click();
         verify_report_Click(kebabButton(), "Kebab Button", url());
 	}
 	
@@ -679,6 +628,239 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 		scrollToBottom();
 		Thread.sleep(1000);
 		youtubeLinkButton(2).click();
+	}
+	
+	//Clients Review
+	public void clientsReviewClicks() {
+	    for (int i = 0; i >=0; i++) {
+			
+					try {
+					WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(10));
+					wait.until(ExpectedConditions.visibilityOf(clientsReviewNext()));
+					clientsReviewNext().click();
+					}catch(Exception h) {
+						break;
+					}
+		    }
+		    for (int j = 0; j >=0; j++) {
+					try {
+						WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(10));
+						wait.until(ExpectedConditions.visibilityOf(clientsReviewPrevious()));
+						clientsReviewPrevious().click();
+						}catch(Exception h) {
+							break;
+						}
+				}
+	}
+	
+	
+	//FB Page Function
+	public WebElement facebook(int num) throws InterruptedException {
+		fbLinkButton(num).click();
+        Thread.sleep(3000);
+        ArrayList<String> arr = windowHandles();
+        System.out.println(arr.size());
+        if(arr.size()>1) {
+        	driver.switchTo().window(arr.get(1));
+		try {
+			WebElement fbPage = driver.findElement(By.xpath("//h1[text()='SalezRobot CRM']"));
+			if(fbPage.isDisplayed()) {
+				String a = "SalezRobot FB Page is Dispalyed<br >"+url();
+				reportStep2(a, "PASS");
+				driver.close();
+				Thread.sleep(1000);
+				driver.switchTo().window(arr.get(0));
+				return fbPage;
+			}else {
+				String a = "SalezRobot FB Page is Not Dispalyed<br >"+url();
+				reportStep2(a, "FAIL");
+				return fbPage; 
+			}
+		}catch(Exception g) {
+			String a = "SalezRobot FB Page is Not Dispalyed<br >"+url();
+			reportStep2(a, "FAIL");
+			return null;
+		}
+        }else {
+        	try {
+    			WebElement fbPage = driver.findElement(By.xpath("//h1[text()='SalezRobot CRM']"));
+    			if(fbPage.isDisplayed()) {
+    				String a = "SalezRobot FB Page is Dispalyed<br >"+url();
+    				reportStep2(a, "PASS");
+    				back();
+    				Thread.sleep(2000);
+    				return fbPage;
+    			}else {
+    				String a = "SalezRobot FB Page is Not Dispalyed<br >"+url();
+    				reportStep2(a, "FAIL");
+    				return fbPage;
+    			}
+    		}catch(Exception g) {
+    			String a = "SalezRobot FB Page is Not Dispalyed<br >"+url();
+    			reportStep2(a, "FAIL");
+    			return null;
+    		}
+        }
+	}
+	
+	
+	//Twitter Function
+	public void twitter(int num) throws InterruptedException {
+		twitterLinkButton(num).click();
+        Thread.sleep(3000);
+        ArrayList<String> arr3 = windowHandles();
+        System.out.println(arr3.size());
+        if(arr3.size()>1) {
+        	driver.switchTo().window(arr3.get(1));
+        try {
+			WebElement insta = driver.findElement(By.xpath("//h2[text()='salezrobot']"));
+			if(insta.isDisplayed()) {
+				String a = "SalezRobot Twitter Page is Dispalyed<br >"+url();
+				reportStep2(a, "PASS");
+				driver.close();
+				Thread.sleep(1000);
+				driver.switchTo().window(arr3.get(0));
+			}else {
+				String a = "SalezRobot Twitter Page is Not Dispalyed<br >"+url();
+				reportStep2(a, "FAIL");
+			}
+		}catch(Exception g) {
+			String a = "SalezRobot Twitter Page is Not Dispalyed<br >"+url();
+			reportStep2(a, "FAIL");
+			back();
+		}
+        }else {
+        	try {
+    			WebElement insta = driver.findElement(By.xpath("//h2[text()='salezrobot']"));
+    			if(insta.isDisplayed()) {
+    				String a = "SalezRobot Twitter Page is Dispalyed<br >"+url();
+    				reportStep2(a, "PASS");
+    				back();
+    				Thread.sleep(2000);
+    			}else {
+    				String a = "SalezRobot Twitter Page is Not Dispalyed<br >"+url();
+    				reportStep2(a, "FAIL");
+    			}
+    		}catch(Exception g) {
+    			String a = "SalezRobot Twitter Page is Not Dispalyed<br >"+url();
+    			reportStep2(a, "FAIL");
+    		}
+        }
+	}
+	
+	
+	//Linkedin Function
+	public void linkedin(int num) {
+		linkedingLinkButton(num).click();
+        ArrayList<String> arr1 = windowHandles();
+        System.out.println(arr1.size());
+        if(arr1.size()>1) {
+        	driver.switchTo().window(arr1.get(1));
+        try {
+			WebElement linkedInPage = driver.findElement(By.xpath("//input[@id='email-or-phone']"));
+			if(linkedInPage.isDisplayed()) {
+				String a = "SalezRobot Linkedin Page is Dispalyed<br >"+url();
+				reportStep2(a, "PASS");
+				driver.close();
+				Thread.sleep(1000);
+				driver.switchTo().window(arr1.get(0));
+			}else {
+				String a = "SalezRobot Linkedin Page is Not Dispalyed<br >"+url();
+				reportStep2(a, "FAIL");
+			}
+		}catch(Exception g) {
+			try {
+				WebElement close = driver.findElement(By.xpath("(//button[@aria-label='Dismiss'])[2]"));
+				close.click();
+				WebElement SalezrobotPage = driver.findElement(By.xpath("//h1[text()[normalize-space()='SalezRobot CRM']]"));
+				String a = "SalezRobot Linkedin Page is Dispalyed<br >"+url();
+				reportStep2(a, "PASS");
+				driver.close();
+				Thread.sleep(1000);
+				driver.switchTo().window(arr1.get(0));
+			}catch(Exception e) {
+			String a = "SalezRobot Linkedin Page is Not Dispalyed<br >"+url();
+			reportStep2(a, "FAIL");
+			}
+		}
+        }else {
+        	try {
+    			WebElement linkedInPage = driver.findElement(By.xpath("//input[@id='email-or-phone']"));
+    			if(linkedInPage.isDisplayed()) {
+    				String a = "SalezRobot Linkedin Page is Dispalyed<br >"+url();
+    				reportStep2(a, "PASS");
+    				back();
+    				Thread.sleep(2000);
+    			}else {
+    				String a = "SalezRobot Linkedin Page is Not Dispalyed<br >"+url();
+    				reportStep2(a, "FAIL");
+    			}
+    		}catch(Exception g) {
+    			try {
+    				WebElement close = driver.findElement(By.xpath("(//button[@aria-label='Dismiss'])[2]"));
+    				close.click();
+    				WebElement SalezrobotPage = driver.findElement(By.xpath("//h1[text()[normalize-space()='SalezRobot CRM']]"));
+    				if(SalezrobotPage.isDisplayed()) {
+    				String a = "SalezRobot Linkedin Page is Dispalyed<br >"+url();
+    				reportStep2(a, "PASS");
+    				back();
+    				Thread.sleep(2000);
+    				}
+    			}catch(Exception e) {
+    			String a = "SalezRobot Linkedin Page is Not Dispalyed<br >"+url();
+    			reportStep2(a, "FAIL");
+    			}
+    		}
+        }
+	}
+	
+	//Instagram Function
+	public void instagram(int num) {
+		instaLinkButton(num).click();
+        ArrayList<String> arr2 = windowHandles();
+        System.out.println(arr2.size());
+        if(arr2.size()>1) {
+        	driver.switchTo().window(arr2.get(1));
+        try {
+			WebElement insta = driver.findElement(By.xpath("//h2[text()='salezrobot']"));
+			if(insta.isDisplayed()) {
+				String a = "SalezRobot Instagram Page is Dispalyed<br >"+url();
+				reportStep2(a, "PASS");
+				driver.close();
+				Thread.sleep(1000);
+				driver.switchTo().window(arr2.get(0));
+			}else {
+				String a = "SalezRobot Instagram Page is Not Dispalyed<br >"+url();
+				reportStep2(a, "FAIL");
+			}
+		}catch(Exception g) {
+			String a = "SalezRobot Instagram Page is Not Dispalyed<br >"+url();
+			reportStep2(a, "FAIL");
+			back();
+		}
+        }else {
+        	try {
+    			WebElement insta = driver.findElement(By.xpath("//h2[text()='salezrobot']"));
+    			if(insta.isDisplayed()) {
+    				String a = "SalezRobot Instagram Page is Dispalyed<br >"+url();
+    				reportStep2(a, "PASS");
+    				back();
+    				Thread.sleep(2000);
+    			}else {
+    				String a = "SalezRobot Instagram Page is Not Dispalyed<br >"+url();
+    				reportStep2(a, "FAIL");
+    			}
+    		}catch(Exception g) {
+    			String a = "SalezRobot Instagram Page is Not Dispalyed<br >"+url();
+    			reportStep2(a, "FAIL");
+    		}
+        }
+	}
+	
+	
+	//Youtube Function
+	public void youtube(int num) {
+		 youtubeLinkButton(num).click();
 	}
 }
 
