@@ -211,15 +211,6 @@ public WebElement name() {
 			}
 		}
 		
-		//Robot CLose Button
-		public WebElement robotCloseButton() {
-			try {
-		    	 WebElement close = driver.findElement(By.id("closeClick"));
-		 		 return close;
-		     }catch(Exception g) {
-		    	 return null;
-		     }
-		}
 		//SalezRobot for button
 		public WebElement salezRobotForButtonToOpen(int num) {
 			try {

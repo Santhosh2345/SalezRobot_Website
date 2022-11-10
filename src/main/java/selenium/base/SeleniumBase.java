@@ -2220,13 +2220,13 @@ public class SeleniumBase extends Reporter implements Browser, Element {
            
       }
 	 
-	 public boolean mouseMove(WebElement ele) {
+	 public Actions mouseMove(WebElement ele) {
 		 Actions act = new Actions(driver);
 			 try {
 				act.moveToElement(ele).perform();
-				return true;
+				return act;
 			} catch (Exception e) {
-			return false;
+			return act;
 	}
 	 }
 	 
@@ -2439,6 +2439,12 @@ public class SeleniumBase extends Reporter implements Browser, Element {
 			 reportStep2(f, "FAIL");
 			 return null;
 		}
+	}
+	 
+	 public void waitTovisible(WebElement ele) {
+	       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	       wait.until(ExpectedConditions.visibilityOf(ele));
+
 	}
 
 }

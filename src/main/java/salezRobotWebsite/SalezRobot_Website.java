@@ -3,7 +3,6 @@ package salezRobotWebsite;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -13,10 +12,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.aventstack.extentreports.ExtentTest;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
-import projectSpecific.base.ProjectSpecificMethods;
 import rsoft_web_Application_All_Elements.Rsoft_web_Application_All_Elements_and_All_Methods;
+import salezrobot_Website_Clickable_Elements.Salezrobot_Website_Chatbot_Element;
 import salezrobot_Website_Clickable_Elements.Salezrobot_Website_Clickable_Elements;
 
 public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
@@ -43,7 +43,14 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 	
 	
 	public void appScrollingFunction() throws InterruptedException{
-		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
+		Salezrobot_Website_Chatbot_Element d = new Salezrobot_Website_Chatbot_Element();
+		Thread.sleep(7000);
+	    try {
+	    	d.cb_close().click();
+	    }catch(Exception g) {
+	    	String a = "Automatic Open was not opened<br />"+url();
+	    	reportStep2(a, "FAIL");
+	    }
 		scrollByXY(0, 1000);
 	     Thread.sleep(1000);
 	     scrollByXY(0, 700);
@@ -64,31 +71,18 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 	
 	@When("Verify the All Clickable Elements")
 	public void clickable_Element_Verification() throws InterruptedException {
-		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
-	    verify_report_Click(f.rsoftLinkText("Home"), f.rsoftLinkText("Home").getText(), url());
-	    try {
-	    WebElement content_h1 = driver.findElement(By.xpath("//h1[text()='Sales Improvement CRM Software']"));
-	    if(content_h1.isDisplayed()) {
-	    	String a = f.rsoftLinkText("Home").getText()+" is Displayed<br />"+url();
-	    	reportStep2(a, "PASS");
-	    }else {
-	    	String a = f.rsoftLinkText("Home").getText()+" is Not Displayed<br />"+url();
-	    	reportStep2(a, "FAIL");
-	    }
-	}catch(Exception g) {
-    	reportStep2("Header content is not displayed<br />", "FAIL");
-	}
-	 //   appScrollingFunction();
-	//    homePage();
-	//    aboutPage();
-	 //   pricingPage();
-	  //  productsPage();
+	    appScrollingFunction();
+	    homePage();
+	    aboutPage();
+	    pricingPage();
+	    productsPage();
 	    contactUsPage();
-//	    jsClick(freeDemo(), "Free Demo", url());
-//	    dataEntryForm();
+	    jsClick(freeDemo(), "Free Demo", url());
+	    dataEntryForm();
 	    
 	}
 	
+	@And("Finish The Test")
 	public void homePage() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
 		kebabPageLink();
@@ -125,6 +119,9 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 		//Footer Elements
 		scrollToBottom();
 		footerElementList();
+        scroll(pricing());
+        pricing().click();
+		home().click();
 		
 		//Bottom Get Started Today
 		scrollToBottom();
@@ -136,7 +133,7 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 	
 	public void aboutPage() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
-		//kebabPageLink();
+		kebabPageLink();
 	    verify_report_Click(about(), about().getText(), url());
 	    
 	    //Top Get Started Today
@@ -178,6 +175,12 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 	    //Clients Review
 		clientsReviewClicks();    
 		    
+		//Footer Elements
+		footerElementList();
+        scroll(pricing());
+        pricing().click();
+        about().click();
+        
 		scrollToBottom();
 		Thread.sleep(2000);
 		click2(getStartedbottom(), getStartedbottom().getText(), url());
@@ -188,12 +191,13 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 	
 	public void pricingPage() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
+		kebabPageLink();
 		verify_report_Click(pricing(), pricing().getText(), url());
 		
 		//Get Started Today TOp
-//		verify_report_Click(getStartedTodayTop(), getStartedTodayTop().getText(), url());
-//		dataEntryForm();
-//		refresh();
+		verify_report_Click(getStartedTodayTop(), getStartedTodayTop().getText(), url());
+		dataEntryForm();
+		refresh();
 		
 		
 		//Plans
@@ -254,6 +258,8 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
         
         //Footer Elements
         footerElementList();
+        scroll(pricing());
+        pricing().click();
         
         //Scocial Media Link
         scrollToBottom();
@@ -271,6 +277,7 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 	
 	public void productsPage() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
+		kebabPageLink();
 		verify_report_Click(products(), products().getText(), url());
 		
 		//Get Started Today Top
@@ -283,7 +290,10 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
   		
   		//Footer Elements
         footerElementList();
-  		
+        scroll(pricing());
+        pricing().click();
+        products().click();
+        
         //Scocial Media Link
         scrollToBottom();
         facebook(2);
@@ -302,13 +312,8 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 	public void contactUsPage() throws InterruptedException {
 		contact = "Contact";
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
+		kebabPageLink();
 		verify_report_Click(contactUs(), contactUs().getText(), url());
-		Thread.sleep(7000);
-	    try {
-	    robotCloseButton().click();
-	    }catch(Exception g) {
-	    	
-	    }
 	    
 	    //Get Started Today Top
 		verify_report_Click(getStartedTodayTop(), getStartedTodayTop().getText(), url());
@@ -325,6 +330,9 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 
 		//Footer Elements
         footerElementList();
+        scroll(pricing());
+        pricing().click();
+  		contactUs().click();
   		
         //Scocial Media Link
         scrollToBottom();
@@ -445,27 +453,28 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 		verify_report_Click(kebabButton(), "Kebab Button", url());
 		jsClick(about(), about().getText(), url());	
 		
-		jsClick_Only(kebabButton());
+		back();
 		jsClick(pricing(), pricing().getText(), url());	
 		
-		jsClick_Only(kebabButton());
+		back();
 		jsClick(products(), products().getText(), url());	
 		
-		jsClick_Only(kebabButton());
+		back();
 		jsClick(contactUs(), contactUs().getText(), url());	
 		
-		jsClick_Only(kebabButton());
+		back();
         jsClick(home(), home().getText(), url());	
         
-        jsClick_Only(kebabButton());
-        jsClick(Kebab_phoneNumber(), "Kebab Phone Contact", url());	
-        
-        if(Kebab_emailContact().isDisplayed()) {
-        	jsClick(Kebab_emailContact(), "Kebab Email Contact", url());	
-        }else {
-        jsClick_Only(kebabButton());
-        jsClick(Kebab_emailContact(), "Kebab Email Contact", url());	
-        }
+//        jsClick_Only(kebabButton());
+//        jsClick(Kebab_phoneNumber(), "Kebab Phone Contact", url());	
+//        refresh();
+//        
+//        if(Kebab_emailContact().isDisplayed()) {
+//        	jsClick(Kebab_emailContact(), "Kebab Email Contact", url());	
+//        }else {
+//        jsClick_Only(kebabButton());
+//        jsClick(Kebab_emailContact(), "Kebab Email Contact", url());	
+//        }
 	}
 	
 	
@@ -481,38 +490,13 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
         verify_report_Click(kebabButton(), "Kebab Button", url());
 	}
 	
-	//This is Chatbot function
-	public void chatBot() throws InterruptedException {
-		WebElement chat = driver.findElement(By.id("imgg"));
-		verify_report_Click(chat, "Chat Bot", url());
-		WebElement crm = driver.findElement(By.xpath("//li/p[text()='SalezRobot CRM']"));
-		mouseMove(crm);
-		WebElement ivr = driver.findElement(By.xpath("//li/p[text()='RPHone IVR']"));
-		mouseMove(ivr);
-		WebElement bot = driver.findElement(By.xpath("//li/p[text()='RBot Chatbot']"));
-		mouseMove(bot);
-		WebElement whatsapp = driver.findElement(By.xpath("//li/p[text()='Whatsapp API']"));
-		mouseMove(whatsapp);
-		WebElement other = driver.findElement(By.xpath("//li/p[text()='Others']"));
-		mouseMove(other);
-		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
-		f.allButtonWithTextXpath("Confirm", "Top").click();
-		f.allButtonWithTextXpath("messageboxid", "Top").sendKeys("Hello");
-		f.clear(f.allButtonWithTextXpath("messageboxid", "Top"), url());
-		WebElement send = driver.findElement(By.xpath("//i[text()='near_me']"));
-		send.click();
-		WebElement refresh = driver.findElement(By.id("refreshClick"));
-		refresh.click();
-		WebElement close = driver.findElement(By.id("closeClick"));
-		close.click();
-	}
 	
 	public void footerElementList() throws InterruptedException {
 		Rsoft_web_Application_All_Elements_and_All_Methods f= new Rsoft_web_Application_All_Elements_and_All_Methods(driver, node, prop, Environment, StageURL, Stage1URL);
 
 		ArrayList<String> about_SalezRobot = new ArrayList<>();
 		about_SalezRobot.add("Customer Case Study");   about_SalezRobot.add("Channel Partners");   
-		about_SalezRobot.add("Customers");    about_SalezRobot.add("Pricing");
+		about_SalezRobot.add("Customers");    //about_SalezRobot.add("Pricing");
 		about_SalezRobot.add("Career");   about_SalezRobot.add("GDPR");   
 		about_SalezRobot.add("Contact Us");
 		for (int i = 0; i < about_SalezRobot.size(); i++) {
@@ -610,6 +594,15 @@ public class SalezRobot_Website extends Salezrobot_Website_Clickable_Elements{
 		}
 	}
 	
+	//Footer Pricing Element
+	public WebElement pricingFooter() {
+		try {
+			WebElement pricing = driver.findElement(By.linkText("Pricing"));
+			return pricing;
+		}catch(Exception g) {
+			return null;
+		}
+	}
 	
 	public void socialMediaLink()throws InterruptedException {
 		scrollToBottom();
