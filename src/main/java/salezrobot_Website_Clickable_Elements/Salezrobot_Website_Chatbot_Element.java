@@ -65,27 +65,27 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 	}
 	
 	//Picklists
-	public WebElement cb_salezrobot() {
+	public WebElement cbPick1_One() {
 		WebElement crm = driver.findElement(By.xpath("//li/p[text()='SalezRobot CRM']"));
 		return crm;
 	}
 	
-	public WebElement cb_RPhone() {
+	public WebElement cbPick1_Two() {
 		WebElement ivr = driver.findElement(By.xpath("//li/p[text()='RPHone IVR']"));
 		return ivr;
 	}
 	
-	public WebElement cb_Rbot() {
+	public WebElement cbPick1_Three() {
 		WebElement bot = driver.findElement(By.xpath("//li/p[text()='RBot cb']"));
 		return bot;
 	}
 	
-	public WebElement cb_WhatsappApi() {
+	public WebElement cbPick1_Four() {
 		WebElement api = driver.findElement(By.xpath("//li/p[text()='Whatsapp API']"));
 		return api;
 	}
 	
-	public WebElement cb_Others() {
+	public WebElement cbPick1_Five() {
 		WebElement other = driver.findElement(By.xpath("//li/p[text()='Others']"));
 		return other;
 	}
@@ -114,11 +114,18 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 		return send;
 	}
 	
-	//Chatbot firsttime given Input
-	public WebElement cb_givenInputFirstTIme() {
-		WebElement input = driver.findElement(By.xpath("(//div[@class='chatshow-msg-user ng-star-inserted'])[2]"));
+	//Chatbot given Input
+	public WebElement cb_givenInput(int num) {
+		WebElement input = driver.findElement(By.xpath("(//div[@class='chatshow-msg-user ng-star-inserted'])["+num+"]"));
 		return input;
 	}
+	
+	//ThirdQuestion
+	public WebElement cb_thirdQuestion() {
+		WebElement third = driver.findElement(By.xpath("//div[text()='Please choose your Business Type?']"));
+		return third;
+	}
+	
 	
 	//Business Type Picklists
 	public WebElement cbPick2_One() {
@@ -156,6 +163,12 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 		return realEstate;
 	}
 	
+	//Fourth Question
+	public WebElement cb_fourthQuestion() {
+		WebElement fourth = driver.findElement(By.xpath("//div[text()='Noted! May I have your Mobile Number to reach you?']"));
+		return fourth;
+	}
+	
 	//Chatbot PhonePrefix Cancel button
 	public WebElement cb_PhonePrefix_Clear() {
 		WebElement phonePrefix = driver.findElement(By.xpath("//span[@class='ng-clear']"));
@@ -164,7 +177,7 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 	
 	//Chatbot PhonePrefix Arrow button
 		public WebElement cb_PhonePrefix_Arrow() {
-			WebElement arrow = driver.findElement(By.xpath("//span[@class='ng-arrow']"));
+			WebElement arrow = driver.findElement(By.xpath("//span[@class='ng-arrow-wrapper']"));
 			return arrow;
 		}
 		

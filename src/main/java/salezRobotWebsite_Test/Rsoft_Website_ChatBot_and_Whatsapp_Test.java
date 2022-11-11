@@ -25,6 +25,9 @@ public class Rsoft_Website_ChatBot_and_Whatsapp_Test extends ProjectSpecificMeth
 		Rsoft_Website_ChatBot_and_Whatsapp f = new Rsoft_Website_ChatBot_and_Whatsapp(driver, node, prop, Environment,
 				                                      StageURL, Stage1URL);
 		f.launch_Salezrobot_Website();
-		f.chatbot();
+		f.chatbot_part1();
+		f.chatbot_part2();
+		f.chatbot_part3();
+		f.chatbot_part4();
 	}
 }
