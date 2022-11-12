@@ -29,5 +29,9 @@ public class Rsoft_Website_ChatBot_and_Whatsapp_Test extends ProjectSpecificMeth
 		f.chatbot_part2();
 		f.chatbot_part3();
 		f.chatbot_part4();
+		f.chatbot_part5();
+		f.chatbot_part6();
+		f.chatbot_part7();
+		f.chatbot_part8();
 	}
 }

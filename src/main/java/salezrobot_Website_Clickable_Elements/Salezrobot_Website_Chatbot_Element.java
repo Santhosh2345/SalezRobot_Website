@@ -54,15 +54,16 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 	
 	//Chatbot Introduction Text
 	public WebElement cb_Intro_Text() {
-		WebElement intro = driver.findElement(By.xpath("//div[text()='Hello! This is Riya from SalezRobot, How can I help you ?']"));
+		WebElement intro = driver.findElement(By.xpath("(//div[@class='chatshow-msg-sys ng-star-inserted'])[1]"));
 		return intro;
 	}
 	
-	//Chatbot First Question
-	public WebElement cb_FirstQuestion() {
-		WebElement qa = driver.findElement(By.xpath("//div[text()='What are you looking for Today ?']"));
+	public WebElement cb_Question(int num) {
+		WebElement qa = driver.findElement(By.xpath("(//div[@class='chatshow-msg-sys ng-star-inserted'])["+num+"]"));
 		return qa;
 	}
+	//Chatbot First Question
+	
 	
 	//Picklists
 	public WebElement cbPick1_One() {
@@ -96,11 +97,7 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 		return confirm;
 	}
 	
-	//Chatbot Question After Picked the List
-	public WebElement cb_SecondQuestion() {
-		WebElement secondQuestion = driver.findElement(By.xpath("//div[text()='May I have your Business Name ?']"));
-		return secondQuestion;
-	}
+	//Chatbot Question After Picked the List   -   Business Name Second Question
 	
 	//Chatbot Message Input
 	public WebElement cb_Input() {
@@ -120,12 +117,7 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 		return input;
 	}
 	
-	//ThirdQuestion
-	public WebElement cb_thirdQuestion() {
-		WebElement third = driver.findElement(By.xpath("//div[text()='Please choose your Business Type?']"));
-		return third;
-	}
-	
+	//Business Type QUestion
 	
 	//Business Type Picklists
 	public WebElement cbPick2_One() {
@@ -134,7 +126,7 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 	}
 	
 	public WebElement cbPick2_Two() {
-		WebElement realEstate = driver.findElement(By.xpath("//li[text()=' Education  ']"));
+		WebElement realEstate = driver.findElement(By.xpath("//li[text()=' Education ']"));
 		return realEstate;
 	}
 	
@@ -164,10 +156,6 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 	}
 	
 	//Fourth Question
-	public WebElement cb_fourthQuestion() {
-		WebElement fourth = driver.findElement(By.xpath("//div[text()='Noted! May I have your Mobile Number to reach you?']"));
-		return fourth;
-	}
 	
 	//Chatbot PhonePrefix Cancel button
 	public WebElement cb_PhonePrefix_Clear() {
@@ -199,46 +187,39 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 			return prefixInput;
 		}
 		
-	//Chatbotstaff in  Organisation 	
-		public WebElement cbPick3_one() {
-			WebElement lessThan = driver.findElement(By.xpath("//li[text()=' Less Than 3 ']"));
-			return lessThan;
-		}
+	//Chatbot FifthQuestion
 		
-		public WebElement cbPick3_Two() {
-			WebElement people = driver.findElement(By.xpath("//li[text()=' 3 To 10 People ']"));
-			return people;
-		}
-		
-		public WebElement cbPick3_Three() {
-			WebElement people = driver.findElement(By.xpath("//li[text()=' 10 - 25 People ']"));
-			return people;
-		}
-		
-		public WebElement cbPick3_Four() {
-			WebElement people = driver.findElement(By.xpath("//li[text()=' 25+ People ']"));
-			return people;
+	//Chatbotstaff in  Organisation   picklist
+		public WebElement cbPick3_(int num) {
+			WebElement pick = driver.findElement(By.xpath("(//li[@class='item float-item msbot-list-li myanimation ng-star-inserted'])["+num+"]"));
+			return pick;
 		}
 		
 	//Chatbot Date Picker
-		public WebElement cb_DatePicker() {
+		public WebElement cb_DatePickerButton() {
 			WebElement datePicker = driver.findElement(By.xpath("//button[@class='datebot-datebtn']"));
 			return datePicker;
 		}
 		
 	//Chatbot Date Year Button
 		public WebElement cb_DateYearButton() {
-			WebElement year = driver.findElement(By.xpath("(//span[@class='mat-button-wrapper'])[1]"));
+			WebElement year = driver.findElement(By.xpath("//button[@class='mat-focus-indicator mat-calendar-period-button mat-button mat-button-base']"));
+			return year;
+		}
+		
+	//Chatbot Date Year List
+		public List<WebElement> cb_DateYearList(){
+			List<WebElement> year = driver.findElements(By.xpath("//table[@class='mat-calendar-table']/tbody/tr/td"));
 			return year;
 		}
 		
 	//Chatbot Date Month Button
-		public WebElement cb_DateMonth_NextButton() {
+		public WebElement cb_DateMY_NextButton() {
 			WebElement month = driver.findElement(By.xpath("(//span[@class='mat-button-focus-overlay'])[3]"));
 			return month;
 		}
 		
-		public WebElement cb_DateMonth_PreviousButton() {
+		public WebElement cb_DateMY_PreviousButton() {
 			WebElement month = driver.findElement(By.xpath("(//span[@class='mat-button-focus-overlay'])[2]"));
 			return month;
 		}
@@ -263,7 +244,7 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 		
 	//Chatbot State Input
 		public WebElement cb_State_Input() {
-			WebElement state = driver.findElement(By.xpath("//div[@class='input-container']/input"));
+			WebElement state = driver.findElement(By.xpath("//div[@class='input-container']/input[@class='ng-pristine ng-valid ng-touched']"));
 			return state;
 		}
 		
