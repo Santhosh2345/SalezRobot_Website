@@ -32,7 +32,7 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 	
 	//Chatbot Refresh Button
 	public WebElement cb_Refresh() {
-		WebElement refresh = driver.findElement(By.id("refreshClick"));
+		WebElement refresh = driver.findElement(By.xpath("//button[@id='refreshClick']"));
 		return refresh;	
 	}
 	
@@ -226,8 +226,13 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 		
 	//Chatbot Date Date Select
 		public WebElement cb_Date_SelectButton(int num) {
+			try {
 			WebElement date = driver.findElement(By.xpath("(//table[@class='mat-calendar-table']/tbody/tr/td[@class='mat-calendar-body-cell ng-star-inserted'])["+num+"]"));
 			return date;
+			}catch(Exception g) {
+				WebElement date = driver.findElement(By.xpath("(//table[@class='mat-calendar-table']/tbody/tr/td[@class='mat-calendar-body-cell mat-calendar-body-active ng-star-inserted'])"));
+				return date;
+			}
 		}
 		
 	//Chatbot Date Select
@@ -244,7 +249,7 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 		
 	//Chatbot State Input
 		public WebElement cb_State_Input() {
-			WebElement state = driver.findElement(By.xpath("//div[@class='input-container']/input[@class='ng-pristine ng-valid ng-touched']"));
+			WebElement state = driver.findElement(By.xpath("//div[@class='input-container']/input"));
 			return state;
 		}
 		
@@ -256,7 +261,7 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 		
 	//Chatbot Ending Thumb
 		public WebElement cb_Ending() {
-			WebElement endingImg = driver.findElement(By.className("chatshow-endimg ng-star-inserted"));
+			WebElement endingImg = driver.findElement(By.xpath("//img[@class='chatshow-endimg ng-star-inserted']"));
 			return endingImg;
 		}
 		
@@ -264,5 +269,11 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 		public WebElement cb_Completed() {
 			WebElement completed = driver.findElement(By.xpath("//label[text()='Chat completed..!']"));
 			return completed;
+		}
+		
+	//BottomText
+		public List<WebElement> cb_BottomTextandLogo(){
+			List<WebElement> text = driver.findElements(By.xpath("//div[@class='chatshow-branding']/label"));
+			return text;
 		}
 }
