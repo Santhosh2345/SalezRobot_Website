@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
 	
-	<test thread-count="1" parallel="false" preserve-order ="true" name="Rsoft_Chatbot_and_Whatsapp">
+	<test thread-count="1" parallel="false" preserve-order ="true" name="Rsoft_Chatbot_and_Whatsapp.java">
 		<classes>
 			<class name="salezRobotWebsite_Test.Rsoft_Website_ChatBot_and_Whatsapp_Test" />
 		</classes>
