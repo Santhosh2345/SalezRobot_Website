@@ -1,7 +1,16 @@
 package salezRobotWebsite;
 
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -9,7 +18,10 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.Random;
 
-import org.openqa.selenium.JavascriptExecutor;
+import javax.imageio.ImageIO;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.aventstack.extentreports.ExtentTest;
@@ -18,8 +30,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import salezrobot_Website_Clickable_Elements.Salezrobot_Website_Chatbot_Element;
 
-public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatbot_Element {
-	public Rsoft_Website_ChatBot_and_Whatsapp(RemoteWebDriver driver, ExtentTest node, Properties prop,
+public class Rsoft_Website_ChatBot_and_WhatsApp extends Salezrobot_Website_Chatbot_Element {
+	public Rsoft_Website_ChatBot_and_WhatsApp(RemoteWebDriver driver, ExtentTest node, Properties prop,
 			String Environment, String StageUrl, String Stage1Url) {
 		this.driver = driver;
 		this.node = node;
@@ -42,7 +54,7 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
 
 	
 	@When("Verify the Function of Chatbot")
-	public void chatbot_part1() throws InterruptedException, IOException {
+	public void firstQA() throws InterruptedException, IOException {
 		Thread.sleep(9000);
 		try {
 			cb_close().click();
@@ -55,8 +67,11 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
 
         try {
         	cb_chatbotIcon().click();
+        	cb_Refresh().click();
+        	cb_close().click();
+        	cb_chatbotIcon().click();
         }catch(Exception g) {
-        	String a = "Chatbot was not opened<br />"+url();
+        	String a = "Chatbot Initial Error<br />"+url();
 	    	reportStep2(a, "FAIL");
         }
         
@@ -114,14 +129,21 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
 	    	reportStep2(a, "FAIL");
         }
          
-         
+	}
+    
+	
+   public void second_QA(int num) throws IOException {
+        	 FileInputStream fis = new FileInputStream(filePath);
+             Properties prop = new Properties();
+             prop.load(fis);
+             
        //Second Question
          try {
         	 String SecondQuestion = prop.getProperty("SecondQuestion");
              System.out.println(SecondQuestion);
              waitTovisible(cb_Intro_Text());
-             System.out.println(cb_Question(2).getText());
-             if(cb_Question(2).getText().equals(SecondQuestion)) {
+             System.out.println(cb_Question(num).getText());
+             if(cb_Question(num).getText().equals(SecondQuestion)) {
              	System.out.println("First Question Text is Equal");
              }else {
              	System.err.println("Intro text fail");
@@ -212,6 +234,12 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
         	 String a = "Error in Pick1_Five Text<br />"+url();
   	    	 reportStep2(a, "FAIL");
          }
+	}
+	
+	public void secondQA_Option_Selection() throws InterruptedException, IOException {
+		 FileInputStream fis = new FileInputStream(filePath);
+	        Properties prop = new Properties();
+	        prop.load(fis);
          
         	 try {
         	 waitTovisible(cbPick1_One());
@@ -222,16 +250,19 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
           	String a = "Error in Chatbot Pick_1st Options Text Verification<br />"+url();
   	    	reportStep2(a, "FAIL");
          }
-         
-        	 
-        	 
-        	 
+	}
+	
+	public void thirdQA(int num) throws InterruptedException, IOException {
+		 FileInputStream fis = new FileInputStream(filePath);
+	        Properties prop = new Properties();
+	        prop.load(fis);
+	
          //Third Question
          try {
         	 String ThirdQuestion = prop.getProperty("ThirdQuestion");
         	 System.out.println(ThirdQuestion);
-        	 waitTovisible(cb_Question(3));
-        	 System.out.println(cb_Question(3).getText());
+        	 waitTovisible(cb_Question(num));
+        	 System.out.println(cb_Question(num).getText());
         	 if(cb_Question(3).getText().equals(ThirdQuestion)) {
         		 System.out.println("Third Question Text is Equal");
         	 }else {
@@ -245,8 +276,13 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
    	    	reportStep2(a, "FAIL");
          }
          
-         
-         
+	}
+	
+	
+	public void thirdQA_Answer() throws InterruptedException, IOException {
+		 FileInputStream fis = new FileInputStream(filePath);
+	        Properties prop = new Properties();
+	        prop.load(fis);
          //Input
          String input = "IT";
          try {
@@ -271,7 +307,7 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
 	
 	
 	
-	public void chatbot_part2() throws IOException {
+	public void fourthQA(int num) throws IOException {
 		FileInputStream fis = new FileInputStream(filePath);
         Properties prop = new Properties();
         prop.load(fis);
@@ -279,8 +315,8 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
 		//Fourth Question
 		 try {
         	 String FourthQuestion = prop.getProperty("FourthQuestion");
-        	 waitTovisible(cb_Question(4));
-        	 String h = cb_Question(4).getText();
+        	 waitTovisible(cb_Question(num));
+        	 String h = cb_Question(num).getText();
         	 System.out.println(FourthQuestion);
         	 System.out.println(h);
         	 if(h.equals(FourthQuestion)) {
@@ -357,7 +393,7 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
     		 String a = "Error in pick2_Three Text<br />"+url();
     	     reportStep2(a, "FAIL");
          }
-         
+
          //Four
          try {
         	 String pick2_Four = prop.getProperty("Pick2_Four");
@@ -439,19 +475,29 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
          }
 	}
 	
-	
-	public void chatbot_part3() throws IOException {
-		FileInputStream fis = new FileInputStream(filePath);
-        Properties prop = new Properties();
-        prop.load(fis);
+
+	public void fourthQA_Option_Selection() throws IOException {
+		
         
 		//Business Type Selection Fifth Question
 		try {
 			cbPick2_Three().click();
+		}catch(Exception g) {
+			System.out.println("fourth qa option not clickable");
+	}
+}
+	
+	public void fifthQA(int num) throws IOException {
+		FileInputStream fis = new FileInputStream(filePath);
+        Properties prop = new Properties();
+        prop.load(fis);
+        
+        //Fifth QA
+        try {
 			String fifthQuestion = prop.getProperty("FifthQuestion");
 			System.out.println(fifthQuestion);
-			waitTovisible(cb_Question(5));
-			String text = cb_Question(5).getText();
+			waitTovisible(cb_Question(num));
+			String text = cb_Question(num).getText();
 			System.out.println(text);
 			if(text.equals(fifthQuestion)) {
 				System.out.println("Fifth question is Equal");
@@ -471,7 +517,7 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
 	
 	String Phone_Number = "1234567890";
 	//Phone Number
-	public void chatbot_part4() throws IOException {
+	public void fifthQA_Answer(int givenInputNumber) throws IOException {
 		FileInputStream fis = new FileInputStream(filePath);
         Properties prop = new Properties();
         prop.load(fis);
@@ -484,8 +530,8 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
         	cb_Input().sendKeys(Phone_Number);
         	cb_Send().click();
         	
-        	waitTovisible(cb_givenInput(4));
-        	String text = cb_givenInput(4).getText();
+        	waitTovisible(cb_givenInput(givenInputNumber));
+        	String text = cb_givenInput(givenInputNumber).getText();
         	if(text.contains(Phone_Number)) {
         		System.out.println("Given Phone Number Is Verified");
         	}else {
@@ -502,7 +548,7 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
 	
 	
 	//Ashking Name Sixth Question
-	public void chatbot_part5() throws IOException {
+	public void sixthQA(int num, int givenInputNumber) throws IOException {
 		FileInputStream fis = new FileInputStream(filePath);
         Properties prop = new Properties();
         prop.load(fis);
@@ -511,7 +557,7 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
         
         try {
         String sixthQA = prop.getProperty("SixQuestion");
-		String text = cb_Question(6).getText();
+		String text = cb_Question(num).getText();
 		if(text.equals(sixthQA)) {
 			System.out.println("Sixth Question is Equal");
 		}else {
@@ -528,8 +574,8 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
         try {
         	cb_Input().sendKeys(name);
         	cb_Send().click();
-        	waitTovisible(cb_givenInput(5));
-        	String text = cb_givenInput(5).getText();
+        	waitTovisible(cb_givenInput(givenInputNumber));
+        	String text = cb_givenInput(givenInputNumber).getText();
         	if(text.equals(name)) {
         		System.out.println("Given Name text is Equal");
         	}else {
@@ -546,7 +592,7 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
 	
 	
 	//Origanisation Staff Question
-	public void chatbot_part6() throws IOException {
+	public void seventhQA(int num) throws IOException {
 		FileInputStream fis = new FileInputStream(filePath);
         Properties prop = new Properties();
         prop.load(fis);
@@ -554,8 +600,8 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
         try {
         	String seventhQA = prop.getProperty("SeventhQuestion");
         	System.out.println(seventhQA);
-        	waitTovisible(cb_Question(7));
-        	String text = cb_Question(7).getText();
+        	waitTovisible(cb_Question(num));
+        	String text = cb_Question(num).getText();
         	if(text.equals(seventhQA)) {
         		System.out.println("Seventh Question Text is Equal");
         	}else {
@@ -657,7 +703,7 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
 	}
 	
 	//Date Question
-	public void chatbot_part7() throws IOException {
+	public void eighthQA(int num, int givenInput) throws IOException {
 		FileInputStream fis = new FileInputStream(filePath);
         Properties prop = new Properties();
         prop.load(fis);
@@ -665,8 +711,8 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
         try {
         	String eighthQA = prop.getProperty("EighthQuestion");
         	System.out.println(eighthQA);
-        	waitTovisible(cb_Question(8));
-        	String text = cb_Question(8).getText();
+        	waitTovisible(cb_Question(num));
+        	String text = cb_Question(num).getText();
         	System.out.println(text);
         	if(text.equals(eighthQA)) {
         		System.out.println("Eighth Question Text is Equal");
@@ -685,8 +731,8 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
         	cb_DateYearList().get(ran.nextInt(size)).click();
         	mouseMove(cb_DateMY_NextButton()).click().perform();
         	mouseMove(cb_DateMY_PreviousButton()).click().perform();
-        	mouseMove(cb_Date_SelectButton(2)).click().perform();
-        	mouseMove(cb_Date_SelectButton(2)).click().perform();
+        	mouseMove(cb_Date_SelectButton(1)).click().perform();
+        	mouseMove(cb_Date_SelectButton(1)).click().perform();
         	
         	System.out.println("//ggggggggggggg");
         	String date = cb_Date_Selected().getAttribute("ng-reflect-model");
@@ -698,7 +744,9 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
         	System.out.println("hjhjhjh");
         	String convertedDate = date_Convertion(date);
         	System.out.println("//jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
-        	String text2 = cb_givenInput(7).getText();
+        	String text2 = cb_givenInput(givenInput).getText();
+        	System.out.println(text2);
+        	Thread.sleep(2000);
         	System.out.println(convertedDate);
         	if(text2.equals(convertedDate)) {
         		System.out.println("Given date is verified");
@@ -717,7 +765,7 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
 	
 	
 	//State Question 
-	public void chatbot_part8() throws IOException {
+	public void ninethQA(int num) throws IOException {
 		FileInputStream fis = new FileInputStream(filePath);
         Properties prop = new Properties();
         prop.load(fis);
@@ -725,8 +773,8 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
         try {
         	String ninethQA = prop.getProperty("NinethQuestion");
         	System.out.println(ninethQA);
-        	waitTovisible(cb_Question(9));
-        	String text = cb_Question(9).getText();
+        	waitTovisible(cb_Question(num));
+        	String text = cb_Question(num).getText();
         	System.out.println(text);
         	if(text.equals(ninethQA)) {
         		System.out.println("Nineth Question Text is Equal");
@@ -737,21 +785,33 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
         	}
         	
         	
-//        	cb_State_Input().click();
-//        	cb_State_Input().sendKeys("India");
-//        	jsClick_Only(cb_StateClose_Button());
-//        	cb_State_Input().click();
-//        	cb_State_Input().sendKeys("India");
+        	String state = "India";
+        	Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();
+			StringSelection str = new StringSelection(state);
+			clip.setContents(str, null);
+			
+			Robot bot = new Robot();
+			scroll(cb_State_Input());
+			waitTovisible(cb_State_Input());
+			cb_State_Input().click();
+			bot.keyPress(KeyEvent.VK_CONTROL);
+			bot.keyPress(KeyEvent.VK_V);
+			bot.keyRelease(KeyEvent.VK_V);
+			bot.keyRelease(KeyEvent.VK_CONTROL);
         	
+        	System.out.println("Hi");
 
-        	JavascriptExecutor js = (JavascriptExecutor)driver;
-
-        	js.executeScript("arguments[0].value='Avinash Mishra';", cb_State_Input());
-        	
-        	Random ran = new Random();
-        	String text2 = cb_State_Select_List().get(ran.nextInt(cb_State_Select_List().size())).getText();
+        	java.util.List<WebElement> forText = driver.findElements(By.xpath("//div[@class='suggestions-container is-visible']/ul/li/div/a/b"));
+        	Thread.sleep(10000);
+        	String text2 = forText.get(0).getText();
         	System.out.println(text2);
-        	cb_State_Select_List().get(ran.nextInt(cb_State_Select_List().size())).click();
+        	java.util.List<WebElement> forClick = driver.findElements(By.xpath("//a/b[text()='"+state+"']"));
+//        	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        	wait.until(ExpectedConditions.elementToBeClickable(forClick.get(0)));
+        	System.out.println("Hi");
+        	jsClick_Only(forClick.get(0));
+        	System.out.println("Hii");
+        	Thread.sleep(1000);
         	cb_Send().click();
         	
         }catch(Exception g) {
@@ -762,6 +822,225 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
 	}
 	
 	
+	
+	String email = "sk@gmail.com";
+	//Email Question
+		public void tenthQA(int num, int givenInput) throws IOException {
+			FileInputStream fis = new FileInputStream(filePath);
+	        Properties prop = new Properties();
+	        prop.load(fis);
+	        
+	        try {
+	        	String tenthQA = prop.getProperty("TenthQuestion");
+	        	System.out.println(tenthQA);
+	        	waitTovisible(cb_Question(num));
+	        	String text = cb_Question(num).getText();
+	        	System.out.println(text);
+	        	if(text.equals(tenthQA)) {
+	        		System.out.println("Tenth Question Text is Equal");
+	        	}else {
+	        		System.err.println("Tenth Question Text is Not Equal");
+	        		String d = "Tenth Question Text is Not Equal<br />"+url();
+	    			reportStep2(d, "FAIL");
+	        	}
+	        	
+	        	cb_Input().sendKeys(email);
+	        	cb_Send().click();
+	        	
+	        	waitTovisible(cb_givenInput(givenInput));
+	        	String emailText = cb_givenInput(givenInput).getText();
+	        	if(emailText.equals(email)) {
+	        		System.out.println("Given Email is Equal");
+	        	}else {
+	        		System.err.println("Given Email is Not Equal");
+	        		String d = "Given Email is not equal Verification<br />"+url();
+	        		reportStep2(d, "FAIL");
+	        	}
+	        }catch(Exception g) {
+	        	System.err.println("Given Email is Not Verified");
+	        	String d = "Error given Email Verification<br />"+url();
+        		reportStep2(d, "FAIL");
+	        }
+		}
+		
+		
+		//Ending Emoji
+		public void eleventhQA(int num) throws IOException, InterruptedException {
+			FileInputStream fis = new FileInputStream(filePath);
+	        Properties prop = new Properties();
+	        prop.load(fis);
+	        
+	        try {
+	        	String eleventhQA = prop.getProperty("EleventhQuestion");
+	        	System.out.println(eleventhQA);
+	        	waitTovisible(cb_Question(num));
+	        	String text = cb_Question(num).getText();
+	        	System.out.println(text);
+	        	if(text.equals(eleventhQA)) {
+	        		System.out.println("Eleventh Question Text is Equal");
+	        	}else {
+	        		System.err.println("Eleventh Question Text is Not Equal");
+	        		String d = "Eleventh Question Text is Not Equal<br />"+url();
+	    			reportStep2(d, "FAIL");
+	        	}
+	        }catch(Exception g) {
+	        	System.err.println("Last Question Text is Not Verified");
+	        	String d = "Error Last Question Text Verification<br />"+url();
+        		reportStep2(d, "FAIL");
+	        }
+	        
+	        String imgsrc = cb_Ending().getAttribute("src");
+	        System.out.println(imgsrc);
+			URL imgURL = new URL(imgsrc);
+			Thread.sleep(10000);
+			try {
+			BufferedImage img = ImageIO.read(imgURL);
+			File file = new File(".\\rsoftLogo1\\Chatbot_Ending_Emoji.png");
+			boolean boo = ImageIO.write(img, "png", file);
+			System.out.println(boo);
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+			
+			try {
+				System.out.println("hhhhhh");
+				String text = cb_Completed().getText();
+				System.out.println(text);
+			if(cb_Completed().isDisplayed()) {
+				System.out.println("Chat Completed");
+			}else {
+				System.out.println("Chat Not Completed");
+			}
+			
+			driver.switchTo().defaultContent();
+			System.out.println(cb_BottomTextandLogo().size());
+			String text1 = cb_BottomTextandLogo().get(0).getText();
+		    String text2 = cb_BottomTextandLogo().get(1).getText();
+			System.out.println(text1 + " "+ text2);
+			if(prop.getProperty("Bottom_Text1").contains(text1)&&prop.getProperty("Bottom_Text2").contains(text2)) {
+				System.out.println("Test Finished");
+			}else {
+				System.err.println("Test not Finished");
+			}
+			}catch(Exception g) {
+				System.err.println("Error in Bottom Section");
+			}
+			
+			refresh();
+		}
+		
+		
+		
+		
+		
+		//When choosing Other option in chatbot
+		public void chatbot_Other_Option() throws InterruptedException, IOException {
+			
+			FileInputStream fis = new FileInputStream(filePath);
+	        Properties prop = new Properties();
+	        prop.load(fis);
+	        
+			firstQA();
+			second_QA(2);
+			
+		       //Second Question
+			 try {
+	        	 waitTovisible(cbPick1_Five());
+	        	 cbPick1_Five().click();
+	        	 cb_Confirm().click();
+	         }catch(Exception g) {
+	        	 System.err.println("Catch Pick Option text Fail");
+	          	String a = "Error in Chatbot Pick_1st Options Text Verification<br />"+url();
+	  	    	reportStep2(a, "FAIL");
+	         }
+			 
+
+			 //Third Question
+	         try {
+	        	 String otherQuestion = prop.getProperty("OtherOPtionInLookingToday");
+	        	 System.out.println(otherQuestion);
+	        	 waitTovisible(cb_Question(3));
+	        	 System.out.println(cb_Question(3).getText());
+	        	 if(cb_Question(3).getText().equals(otherQuestion)) {
+	        		 System.out.println("Third Question Text is Equal");
+	        	 }else {
+	        		 System.err.println("Third Question Text is Not Equal");
+	        		 String a = "ThirdQuestion Text is not Equal<br />"+url();
+	       	    	reportStep2(a, "FAIL");
+	        	 }
+	         }catch(Exception g) {
+	        	 System.err.println("Catch Third Question");
+	        	 String a = "Error in ThirdQuestion Text Verification<br />"+url();
+	   	    	reportStep2(a, "FAIL");
+	         }
+	         
+	         thirdQA_Answer();
+	         fourthQA(4);
+	         
+	         try {
+	        	 cbPick2_Seven().click();
+	 		}catch(Exception g) {
+	 			System.out.println("fourth qa option not clickable in chatbotOther Option Method");
+	 	}
+	         
+	         //Fifth QA
+	         try {
+		        	String fifthQA = prop.getProperty("OtherOptionInBusinessType");
+		        	System.out.println(fifthQA);
+		        	waitTovisible(cb_Question(5));
+		        	String text = cb_Question(5).getText();
+		        	System.out.println(text);
+		        	if(text.equals(fifthQA)) {
+		        		System.out.println("Fifth Question Text is Equal - Other");
+		        	}else {
+		        		System.err.println("Fifth Question Text is Not Equal - Other");
+		        		String d = "Fifth Question Text is Not Equal - Other<br />"+url();
+		    			reportStep2(d, "FAIL");
+		        	}
+		        }catch(Exception g) {
+		        	System.err.println("Fifth Question Text is Not Verified - Other");
+		        	String d = "Error Fifth Question Text Verification - Other<br />"+url();
+	        		reportStep2(d, "FAIL");
+		        }
+	         
+	         
+	         String cmptype = "IT";
+	         try {
+	         cb_Input().sendKeys(cmptype);
+	         cb_Send().click();
+	         
+	         waitTovisible(cb_givenInput(4));
+	        	String text = cb_givenInput(4).getText();
+	        	if(text.contains(cmptype)) {
+	        		System.out.println("Given Company Type Is Verified - Other");
+	        	}else {
+	        		System.err.println("Given Company Type Is Not Equal - Other");
+	        		String d = "Company Type is Not Equal - Other<br />"+url();
+					reportStep2(d, "FAIL");
+	        	}
+	        }catch(Exception g) {
+	        	System.err.println("Catch Given Company Type Is Not Equal - Other");
+	        	String d = "Error Company Type Verification - Other<br />"+url();
+				reportStep2(d, "FAIL");
+	        }
+	         /*
+	         For Selecting other option
+	         Increase the question number
+	         */
+	         
+	         fifthQA(6);
+	         fifthQA_Answer(5);  //Given Input in 5th place
+	         sixthQA(7, 6);      //Given Input in 6th place
+	         seventhQA(8);
+	         eighthQA(9, 8);
+	         ninethQA(10);
+	         tenthQA(11, 10);
+	         eleventhQA(12);
+		}
+		
+		
+		
+		
 	public String date_Convertion(String str) {
 	        String[] r = str.split(" ", 0);
 	        ArrayList<String> hh = new ArrayList<>();
@@ -786,4 +1065,82 @@ public class Rsoft_Website_ChatBot_and_Whatsapp extends Salezrobot_Website_Chatb
 	        return f;
 
 	}
+	
+	
+	public void whatsapp() {
+		//refresh();
+		if (Environment.equalsIgnoreCase("Live")) {
+			navigateto(StageURL);
+		} else {
+			navigateto(Stage1URL);
+		}
+		waitTovisible(cb_WhatsappIcon());
+		cb_WhatsappIcon().click();
+	    ArrayList<String> wh = windowHandles();
+	    if(wh.size()>1) {
+	    	driver.switchTo().window(wh.get(1));
+	    }
+	    
+	    try {
+	    	if(cb_wh_rsoftlogo().isDisplayed()) {
+	    		String src = cb_wh_rsoftlogo().getAttribute("src");
+	    		URL url = new URL(src);
+	    		BufferedImage img = ImageIO.read(url);
+	    		ImageIO.write(img, "png", new File(".\\rsoftLogo1\\RsoftLogo_In_Whatsapp.png"));
+	    	}else {
+	    		String a = "Rsoft Logo is not present"+url();
+	    		reportStep2(a, "FAIL");
+	    	}
+	    	
+	    	if(cb_wh_RsoftText().getText().equalsIgnoreCase("RSoft")) {
+	    		System.out.println("Text is Equal");
+	    	}else {
+	    		System.out.println("Rsoft Text is Not Equal");
+	    		String a = "RSoft Text in Whatsapp page is Not Equal"+url();
+	    		System.out.println(a);
+	    	}
+	    	
+	    	if(cb_wh_RsoftTick().isDisplayed()) {
+	    		System.out.println("Tick symbol for Rsoft in Whatsapp is dispalayed");
+	    		String src = cb_wh_RsoftTick().getAttribute("src");
+	    		URL url = new URL(src);
+	    		BufferedImage img = ImageIO.read(url);
+	    		ImageIO.write(img, "png", new File(".\\rsoftLogo1\\Rsoft_Text_Tick.png"));
+	    	}else {
+	    		System.out.println("Tick symbol for Rsoft in Whatsapp is Not dispalayed");
+	    		String a = "Tick symbol for Rsoft in Whatsapp is Not dispalayed<br />"+url();
+	    		reportStep2(a, "FAIL");
+	    	}
+	    	
+	    	if(cb_wh_ContinueToChat().isDisplayed()) {
+	    		cb_wh_ContinueToChat().click();
+	    	}else {
+	    		System.out.println("Continue To Chat in Whatsapp is Not dispalayed");
+	    		String a = "Continue To Chat in Whatsapp is Not dispalayed<br />"+url();
+	    		reportStep2(a, "FAIL");
+	    	}
+	    	
+	    	waitTovisible(cb_wh_UseWebLink());
+	    	if(cb_wh_UseWebLink().isDisplayed()) {
+	    		cb_wh_UseWebLink().click();
+	    	}else {
+	    		System.out.println("User weblink to chat is Not Displayed");
+	    		String a = "User weblink to chat is Not Displayed<br />"+url();
+	    		reportStep2(a, "FAIL");
+	    	}
+	    	
+	    	if(cb_wh_whatsappScanner().isDisplayed()) {
+	    		System.out.println("Whatsapp QR Scanner is displayed");
+	    	}else {
+	    		System.out.println("Whatsapp QR Scanner is Not displayed");
+		    	String a = "Whatsapp QR Scanner is Not displayed<br />"+url();
+		    	reportStep2(a, "FAIL");
+	    	}
+	    }catch(Exception g) {
+	    	System.out.println("Error in Whatsapp - section");
+	    	String a = "Error in Whatsapp section<br />"+url();
+	    	reportStep2(a, "FAIL");
+	    }
+	}
+	
 }

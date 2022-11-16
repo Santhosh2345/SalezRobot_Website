@@ -2,11 +2,12 @@ package salezRobotWebsite_Test;
 
 import java.io.IOException;
 
+
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import projectSpecific.base.ProjectSpecificMethods;
-import salezRobotWebsite.Rsoft_Website_ChatBot;
+import salezRobotWebsite.Rsoft_Website_ChatBot_and_WhatsApp;
 
 public class Rsoft_Website_ChatBot_and_Whatsapp_Test extends ProjectSpecificMethods{
 
@@ -22,7 +23,7 @@ public class Rsoft_Website_ChatBot_and_Whatsapp_Test extends ProjectSpecificMeth
 	public void clikable_Elements_in_SalezRobot_Website() throws InterruptedException, IOException {
 		node = test.createNode("F_01_002 Verify the Chatbot and Whatsapp section in the Website");
 		extent.attachReporter(spark);
-		Rsoft_Website_ChatBot f = new Rsoft_Website_ChatBot(driver, node, prop, Environment,
+		Rsoft_Website_ChatBot_and_WhatsApp f = new Rsoft_Website_ChatBot_and_WhatsApp(driver, node, prop, Environment,
 				                                      StageURL, Stage1URL);
 		f.launch_Salezrobot_Website();
 		f.firstQA();
@@ -36,10 +37,11 @@ public class Rsoft_Website_ChatBot_and_Whatsapp_Test extends ProjectSpecificMeth
 		f.fifthQA_Answer(4);  //Given Input in 4th place
 		f.sixthQA(6, 5);      //Given Input in 5th place
 		f.seventhQA(7);
-		f.eighthQA(8);
+		f.eighthQA(8, 7);
 		f.ninethQA(9);
-		f.tenthQA(10);
+		f.tenthQA(10, 9);
 		f.eleventhQA(11);
 		f.chatbot_Other_Option();
+		f.whatsapp();
 	}
 }

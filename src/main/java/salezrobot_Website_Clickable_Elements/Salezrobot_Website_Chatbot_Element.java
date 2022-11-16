@@ -276,4 +276,46 @@ public class Salezrobot_Website_Chatbot_Element extends ProjectSpecificMethods {
 			List<WebElement> text = driver.findElements(By.xpath("//div[@class='chatshow-branding']/label"));
 			return text;
 		}
+		
+	//Whatsapp api
+		public WebElement cb_WhatsappIcon() {
+			WebElement whatsapp = driver.findElement(By.xpath("(//a[contains(@href,'whatsapp.com')])[1]"));
+			return whatsapp;
+		}
+		
+	//Whatsapp 	logo
+		public WebElement cb_wh_rsoftlogo() {
+			WebElement logo = driver.findElement(By.xpath("//div/img"));
+			return logo;
+		}
+		
+	//Whatsapp text
+		public WebElement cb_wh_RsoftText() {
+			WebElement rsoft = driver.findElement(By.xpath("//div/h3[text()='RSoft']"));
+			return rsoft;
+		}
+		
+	//Whatsapp rsoft_Tick
+		public WebElement cb_wh_RsoftTick() {
+			WebElement tick = driver.findElement(By.xpath("//div/h3/span/img"));
+			return tick;
+		}
+		
+	//Whatsapp continue to chat
+		public WebElement cb_wh_ContinueToChat() {
+			WebElement chat = driver.findElement(By.xpath("//span[text()='Continue to Chat']"));
+			return chat;
+		}
+		
+	//Whatsapp use web
+		public WebElement cb_wh_UseWebLink() {
+			WebElement web = driver.findElement(By.xpath("//span[text()='use WhatsApp Web']"));
+			return web;
+		}
+		
+	//Whatsapp scanner
+		public WebElement cb_wh_whatsappScanner() {
+			WebElement qr = driver.findElement(By.tagName("canvas"));
+			return qr;
+		}
 }
